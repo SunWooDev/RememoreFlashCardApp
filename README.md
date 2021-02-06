@@ -34,3 +34,12 @@ Hence, this is an efficient studying technique that can shorten student's time t
 I am an avid learner strive to learn better and faster about computer science.
 Moreover, by using an efficient learning technique, I can also achieve better work life balance by learning the same amount of material faster and using the extra time to spend time for hobbies or family.
 
+#### **User Stories**
+- As a user, I want to be able to add a new flash card to a box
+- As a user, I want to be able to remove and modify an existing flash card
+- As a user, I want to be able to move an existing flash card to different box
+- As a user, I want to be able to modify box timer for user's liking and customization
+- As a user, I want to be able to test cards in a box with expired timer.
+- As a user, I want to be able to save cards and not have to enter the cards again when using the program the next time.
+
+
