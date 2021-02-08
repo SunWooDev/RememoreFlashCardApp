@@ -53,7 +53,7 @@ public class CardBoxTest {
 
 
     @Test
-    public void testRemoveCard() {
+    public void testRemoveCardValidID() {
         //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
         //Therefore reset the cardID back to 0
         Card.setNextCardID(0);
@@ -80,11 +80,36 @@ public class CardBoxTest {
 
     }
 
+    @Test
+    public void testRemoveCardInvalidID() {
+        //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
+        //Therefore reset the cardID back to 0
+        Card.setNextCardID(0);
 
+        CardBox cardBoxObj = new CardBox(3,22);
+        List<Card> tableOfCards = cardBoxObj.getTableOfCards();
+
+        //add three cards to the card box
+        cardBoxObj.addCard("Question1", "Answer1");
+        cardBoxObj.addCard("Question2", "Answer2");
+        cardBoxObj.addCard("Question3", "Answer3");
+
+        //check that table of cards is 3
+        assertEquals(3, tableOfCards.size());
+
+        //remove card with index of 500, nothing happens
+        cardBoxObj.removeCard( 500 );
+
+        //check that table of card is 2.
+        assertEquals(3, tableOfCards.size());
+        assertEquals( "Question1", tableOfCards.get(0).getFrontInfo());
+        assertEquals( "Question2", tableOfCards.get(1).getFrontInfo());
+        assertEquals( "Question3", tableOfCards.get(2).getFrontInfo());
+    }
 
 
     @Test
-    public void testModifyCard() {
+    public void testModifyCardValidID() {
         //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
         //Therefore reset the cardID back to 0
         Card.setNextCardID(0);
@@ -112,11 +137,36 @@ public class CardBoxTest {
 
     }
 
+    @Test
+    public void testModifyCardInvalidID() {
+        //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
+        //Therefore reset the cardID back to 0
+        Card.setNextCardID(0);
 
+        CardBox cardBoxObj = new CardBox(3,22);
+
+
+        List< Card > tableOfCards = cardBoxObj.getTableOfCards();
+        //check that the tableOfCards is empty
+        assertEquals( 0, tableOfCards.size() );
+
+        //add the card into the tableOfCards. The first card's ID is 0
+        cardBoxObj.addCard( "Question", "Answer" );
+        assertEquals( "Question", cardBoxObj.getTableOfCards().get(0).getFrontInfo() );
+        assertEquals( "Answer", cardBoxObj.getTableOfCards().get(0).getBackInfo() );
+
+
+
+        //check that the card has Question Modified" and "Answer Modified", but with Invalid ID, nothing changed
+        cardBoxObj.modifyCard( 500, "Question Modified", "Answer Modified");
+        assertEquals( "Question", cardBoxObj.getTableOfCards().get(0).getFrontInfo());
+        assertEquals( "Answer", cardBoxObj.getTableOfCards().get(0).getBackInfo());
+
+    }
 
 
     @Test
-    public void testMoveCardToDifferentBox() {
+    public void testMoveCardToDifferentBoxValidID() {
         //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
         //Therefore reset the cardID back to 0
         Card.setNextCardID(0);
@@ -140,7 +190,31 @@ public class CardBoxTest {
         assertEquals( 1, cardBoxTwo.getTableOfCards().size());
     }
 
+    @Test
+    public void testMoveCardToDifferentBoxInvalidID() {
+        //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
+        //Therefore reset the cardID back to 0
+        Card.setNextCardID(0);
 
+        CardBox cardBoxOne = new CardBox( 1, 40 );
+        CardBox cardBoxTwo = new CardBox( 2, 40 );
+
+        //add card to cardBoxOne
+        cardBoxOne.addCard( "front", "back" );
+        cardBoxOne.addCard( "front", "back" );
+
+        //check cardBoxOne has 2 cards and cardBoxTwo has 0 cards
+        assertEquals( 2, cardBoxOne.getTableOfCards().size());
+        assertEquals( 0, cardBoxTwo.getTableOfCards().size());
+
+        //move the card from cardBoxTwo tableOfCards to cardBoxObj2 tableOfCards, but with invalidID, nothing happens
+        cardBoxOne.moveCardToDifferentBox( 500, cardBoxTwo );
+
+        //check cardBoxOne has 1 card and cardBoxTwo has 1 card
+        assertEquals( 2, cardBoxOne.getTableOfCards().size());
+        assertEquals( 0, cardBoxTwo.getTableOfCards().size());
+
+    }
 
 
     @Test
