@@ -6,6 +6,7 @@
 
 #### **What will the application do?**
 
+Rememore is a portmanteau of "remember" and "more".
 Rememore is a software implementation of the Leitner System.
 Leitner System is a studying technique using flash cards and boxes.
 There are 5 boxes that stores flash cards labeled from 1 to 5 and each has an associated timer with increasing interval that indicates when the user should study the flash cards in the box again.
@@ -42,4 +43,8 @@ Moreover, by using an efficient learning technique, I can also achieve better wo
 - As a user, I want to be able to test cards in a box with expired timer.
 - As a user, I want to be able to save cards and not have to enter the cards again when using the program the next time.
 
-
+#### **Grading Scheme*
+20 pts - (code coverage score * 20) - so 100% code coverage yields a score of 20, whereas 0% code coverage yields a score of 0
+10 pts - clear and correct documentation has been provided 
+70 pts - realization of four user stories relevant to the proposed application (roughly equally weighted);
+to obtain any of these marks at least one of the user stories that has been realized must be of the form "add multiple Xs to a Y" as described above.  
