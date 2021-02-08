@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class CardBox {
 
     //Fields------------------------------------------------------------------
@@ -95,14 +96,16 @@ public class CardBox {
     //REQUIRES: X
     //MODIFIES: this
     //EFFECTS: shuffles testableTableOfCards to get ready to test the cards.
-    public void readyToTestCards() {
+    public boolean readyToTestCards() {
         //find cards that have expired timer
         findCardsToTest();
         //if there are cards in the testableTableOfCards
         if (testableTableOfCards.size() != 0) {
             //shuffle the testableTableOfCards
             Collections.shuffle(testableTableOfCards);
+            return true;
         }
+        return false;
         //otherwise, there is no shuffle if there are no cards in the testableTableOfCards
     }
 
@@ -130,6 +133,7 @@ public class CardBox {
         //if iteration is done, then it means no cards are found. Return null
         return null;
     }
+
 
 
 

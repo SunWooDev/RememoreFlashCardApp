@@ -2,8 +2,9 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardBoxManagerTest {
@@ -59,18 +60,112 @@ public class CardBoxManagerTest {
         CardBox expectedCardBoxFiveFound = cardBoxManagerObj.getListOfCardBoxes().get(4);
         CardBox actualCardBoxFiveFound = cardBoxManagerObj.findCardBoxInCardBoxManager(5);
         assertEquals( expectedCardBoxFiveFound, actualCardBoxFiveFound);
+    }
+
+    @Test
+    public void testFindCardBoxInCardBoxManagerInvalidCardBoxNumber() {
+        CardBoxManager cardBoxManagerObj = new CardBoxManager();
+        CardBox actualCardBoxOneFound = cardBoxManagerObj.findCardBoxInCardBoxManager(60);
+        assertEquals( null, actualCardBoxOneFound);
 
 
     }
 
 
+
     @Test
-    public void testFindCardBoxInCardBoxManagerInvalidCardBoxNumber() {
+    public void testGotAnswerCorrectlyNotLastBox() {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
-        CardBox actualCardBoxOneFound = cardBoxManagerObj.findCardBoxInCardBoxManager(500);
-        assertEquals( null, actualCardBoxOneFound);
+        //When user get a testing card correctly, the card moves to the next box and timer is set to the next box's timer
+        //if the card is at the last box, the card stays and timer resets the the last box's
+
+        //add a card to cardBoxOne
+        CardBox cardBoxOne = cardBoxManagerObj.findCardBoxInCardBoxManager(1);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        cardBoxOne.getTableOfCards().add( cardWithExpiredTimer );
+        //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
+        cardBoxOne.readyToTestCards();
+        List<Card> testableTableOfCards = cardBoxOne.getTestableTableOfCards();
+        Card testableCard = testableTableOfCards.get(0);
+
+        //test the card and user got it correctly.
+        cardBoxManagerObj.gotAnswerCorrectly(testableCard,cardBoxOne);
+        CardBox cardBoxTwo = cardBoxManagerObj.findCardBoxInCardBoxManager( 2 );
+        //The card should be in the second card box and not in the first card box
+        assertFalse(cardBoxOne.getTableOfCards().contains(cardWithExpiredTimer));
+        assertTrue(cardBoxTwo.getTableOfCards().contains(cardWithExpiredTimer));
+
+    }
 
 
+    @Test
+    public void testGotAnswerCorrectlyLastBox() {
+        CardBoxManager cardBoxManagerObj = new CardBoxManager();
+        //When user get a testing card correctly, the card moves to the next box and timer is set to the next box's timer
+        //if the card is at the last box, the card stays and timer resets the the last box's
+
+        //add a card to cardBoxOne
+        CardBox cardBoxFive = cardBoxManagerObj.findCardBoxInCardBoxManager(5);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        cardBoxFive.getTableOfCards().add( cardWithExpiredTimer );
+        //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
+        cardBoxFive.readyToTestCards();
+        List<Card> testableTableOfCards = cardBoxFive.getTestableTableOfCards();
+        Card testableCard = testableTableOfCards.get(0);
+
+        //test the card and user got it correctly.
+        cardBoxManagerObj.gotAnswerCorrectly(testableCard,cardBoxFive);
+        //The card should still be in the last 5th box
+        assertTrue(cardBoxFive.getTableOfCards().contains(cardWithExpiredTimer));
+
+
+    }
+
+
+
+    @Test
+    public void testGotAnswerIncorrectlyNotFirstBox() {
+        CardBoxManager cardBoxManagerObj = new CardBoxManager();
+        //When user get a testing card incorrect, the card moves to the previous box and timer is set to the previous box's timer
+        //if the card is at the first box, the card stays and timer resets the the first box's
+
+        //add a card to cardBoxThree
+        CardBox cardBoxThree = cardBoxManagerObj.findCardBoxInCardBoxManager(3);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        cardBoxThree.getTableOfCards().add( cardWithExpiredTimer );
+        //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
+        cardBoxThree.readyToTestCards();
+        List<Card> testableTableOfCards = cardBoxThree.getTestableTableOfCards();
+        Card testableCard = testableTableOfCards.get(0);
+
+        //test the card and user got it incorrectly.
+        cardBoxManagerObj.gotAnswerIncorrectly(testableCard,cardBoxThree);
+        CardBox cardBoxTwo = cardBoxManagerObj.findCardBoxInCardBoxManager( 2 );
+        //The card should be in the second card box and not in the third card box
+        assertFalse(cardBoxThree.getTableOfCards().contains(cardWithExpiredTimer));
+        assertTrue(cardBoxTwo.getTableOfCards().contains(cardWithExpiredTimer));
+    }
+
+
+    @Test
+    public void testGotAnswerIncorrectlyFirstBox() {
+        CardBoxManager cardBoxManagerObj = new CardBoxManager();
+        //When user get a testing card incorrect, the card moves to the previous box and timer is set to the previous box's timer
+        //if the card is at the first box, the card stays and timer resets the the first box's
+
+        //add a card to cardBoxThree
+        CardBox cardBoxOne = cardBoxManagerObj.findCardBoxInCardBoxManager(1);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        cardBoxOne.getTableOfCards().add( cardWithExpiredTimer );
+        //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
+        cardBoxOne.readyToTestCards();
+        List<Card> testableTableOfCards = cardBoxOne.getTestableTableOfCards();
+        Card testableCard = testableTableOfCards.get(0);
+
+        //test the card and user got it incorrectly.
+        cardBoxManagerObj.gotAnswerIncorrectly(testableCard,cardBoxOne);
+        //The card should be in the first box
+        assertTrue(cardBoxOne.getTableOfCards().contains(cardWithExpiredTimer));
     }
 
 }

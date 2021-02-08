@@ -71,6 +71,53 @@ public class CardBoxManager {
         return null;
     }
 
+
+
+    //REQUIRES: inputCurrentCardToTest is an existing card in inputCurrentCardBox's testTableTableOfCards
+    //MODIFIES: inputCurrentCardBox, inputCurrentCardBox
+    //EFFECTS: When testing a card, when the user get it correct, the card moves to the next box
+    // and card timer is set to the next box's timer.
+    //If the card is in the last box, the card stays in the last box and timer is reset to the last box's timer.
+    public void gotAnswerCorrectly(Card inputCurrentCardToTest, CardBox inputCurrentCardBox) {
+
+        //if answered correctly and card is at the last box
+        if (inputCurrentCardBox.getCardBoxNum() == getListOfCardBoxes().size()) {
+            //card stays and card timer resets
+            inputCurrentCardToTest.setTimerUntilTestedAgain(inputCurrentCardBox.getBoxMinutesTimer());
+        } else {
+            //else, if answered correctly and card is not at the last box
+            //move the card to next box
+            CardBox nextBox = findCardBoxInCardBoxManager(inputCurrentCardBox.getCardBoxNum() + 1);
+            inputCurrentCardBox.moveCardToDifferentBox(inputCurrentCardToTest.getCardID(),nextBox);
+            //set the timer to next box's timer
+            inputCurrentCardToTest.setTimerUntilTestedAgain(nextBox.getBoxMinutesTimer());
+        }
+
+    }
+
+
+    //REQUIRES: inputCurrentCardToTest is an existing card in inputCurrentCardBox's testTableTableOfCards
+    //MODIFIES: inputCurrentCardBox, inputCurrentCardBox
+    //EFFECTS: When testing a card, when the user get it incorrect, the card moves to the previous box
+    //and card timer is set to the previous box's timer.
+    // If the card is in the first box, the card stays in the first box and timer is reset to the first box's timer.
+    public void gotAnswerIncorrectly(Card inputCurrentCardToTest, CardBox inputCurrentCardBox) {
+        //if answered incorrectly and card is at the first box
+        if (inputCurrentCardBox.getCardBoxNum() == 1) {
+            //card stays and card timer resets
+            inputCurrentCardToTest.setTimerUntilTestedAgain(inputCurrentCardBox.getBoxMinutesTimer());
+
+        } else {
+            //else answered incorrectly and card is not at the first box
+            //move the card to one box behind
+            CardBox previousBox = findCardBoxInCardBoxManager(inputCurrentCardBox.getCardBoxNum() - 1);
+            inputCurrentCardBox.moveCardToDifferentBox(inputCurrentCardToTest.getCardID(),previousBox);
+            //set the timer to the previous box's timer
+            inputCurrentCardToTest.setTimerUntilTestedAgain(previousBox.getBoxMinutesTimer());
+        }
+
+    }
+
     //Private methods----------------------------------------------------------------------------------
 
 
