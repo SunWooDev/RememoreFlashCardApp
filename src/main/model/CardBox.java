@@ -66,7 +66,7 @@ public class CardBox {
     }
 
     //REQUIRES: inputID must be existing card ID in the tableOfCards.
-    //MODIFIES: Card
+    //MODIFIES: this
     //EFFECTS: modify the content of the front side (question) and back side (answer) of the card found given inputID
     public void modifyCard(int inputID, String inputModifiedFrontInfo, String inputModifiedBackInfo) {
         Card cardToModifyFound = findCardInCardBox(inputID);

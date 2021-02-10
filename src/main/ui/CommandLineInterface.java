@@ -219,7 +219,7 @@ public class CommandLineInterface {
     //Option 2 add cards-----------------------------------------
     /*
     REQUIRES: inputBoxNum is one of 1,2,3,4,5.
-    MODIFIES: CardBox
+    MODIFIES: this
     EFFECTS: given selected box with inputBoxNum,
     add a card in the box by using user's input of front and back card info
     */
@@ -239,7 +239,7 @@ public class CommandLineInterface {
     //Option 3 remove cards-----------------------------------------
     /*
     REQUIRES: inputBoxNum is one of 1,2,3,4,5.
-    MODIFIES: CardBox
+    MODIFIES: this
     EFFECTS: given selected box with inputBoxNum, remove a card by using user's input of cardID
     */
     private void removeCardUI(int inputBoxNum) {
@@ -257,7 +257,7 @@ public class CommandLineInterface {
     //Option 4 remove cards-----------------------------------------
     /*
     REQUIRES: inputBoxNum is one of 1,2,3,4,5.
-    MODIFIES: CardBox
+    MODIFIES: this
     EFFECTS: given selected box with inputBoxNum, modify a card in the box by
     first finding the card the user wants with the cardID and
     overwrite previous front and back card info with the user's input of front and back card info
@@ -288,7 +288,7 @@ public class CommandLineInterface {
     //Option 5 move card-----------------------------------------
     /*
     REQUIRES: inputBoxNum is one of 1,2,3,4,5.
-    MODIFIES: CardBox
+    MODIFIES: this
     EFFECTS: given selected box with inputBoxNum, move a card in the box by
     first finding the card the user wants with the cardID and
     moving the card to a different box the user wants to with the box number.
@@ -322,7 +322,7 @@ public class CommandLineInterface {
     //Option 6 test cards-----------------------------------------
    /*
     REQUIRES: inputBoxNum is one of 1,2,3,4,5.
-    MODIFIES: CardBox
+    MODIFIES: this
     EFFECTS: given selected box with inputBoxNum,
     test the cards by first getting ready to test the cards
     print the front info
@@ -424,7 +424,7 @@ public class CommandLineInterface {
     // Option 7 modify box timer-----------------------------------------
    /*
     REQUIRES: inputBoxNum is one of 1,2,3,4,5.
-    MODIFIES: CardBox
+    MODIFIES: this
     EFFECTS: print the prompt to user to enter new box timer and current timer
     change the timer to the user's newly entered timer.
 
