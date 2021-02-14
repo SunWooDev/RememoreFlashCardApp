@@ -36,10 +36,10 @@ public class Card {
 
 /*  REQUIRES: inputTimeUntilTestedAgain >= 0 as the timer can not be negative.
     EFFECTS:
-    constructs card object and sets the initial values
-    frontInfo is set to inputFrontInfo
-    backInfo is set to inputBackInfo
-    timerUntilTestedAgain is set inputTimeUntilTestedAgain
+    constructs card object given inputFrontInfo (question) and inputBackInfo (answer) of the card.
+    sets the card's time given inputTimeUntilTestedAgain
+    Card ID is incremented for every new card
+    First card ID is 0, second card is 1, third card is 2.
     cardID is unique positive integer not assigned to any other card
     */
     public Card(String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain) {
@@ -52,11 +52,10 @@ public class Card {
 
     /*  REQUIRES: inputTimeUntilTestedAgain >= 0 as the timer can not be negative.
         EFFECTS:
-        constructs card object and sets the initial values
-        frontInfo is set to inputFrontInfo
-        backInfo is set to inputBackInfo
-        timerUntilTestedAgain is set inputTimeUntilTestedAgain
-        cardID is set to inputID
+    constructs card object given inputFrontInfo (question) and inputBackInfo (answer) of the card.
+    sets the card's time given inputTimeUntilTestedAgain
+    Card ID is set with given inputID
+    cardID is unique positive integer not assigned to any other card
         */
     public Card(String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain, int inputID) {
         frontInfo = inputFrontInfo;

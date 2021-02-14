@@ -21,11 +21,14 @@ public class CardBox {
     inputCardBoxNum is one of 1,2,3,4,5.
     inputBoxTimer >=0 as timer can't be negative
     EFFECTS:
-    Constructs a CardBox object and sets the initial values
-    tableOfCards is set a new array list
-    cardBoxNum is set inputCardBoxNum
-    boxMinutesTimer is set inputBoxTimer
-    testableTableOfCards is set new array list
+    Constructs a CardBox object with
+    tableOfCards is set a new empty array list. tableOfCards is the cards in the CardBox object.
+    cardBoxNum is set with given inputCardBoxNum.
+    For relationship between cardBoxNum, timer, frequency of testing, refer to cardBoxManager constructor EFFECTS
+
+
+    boxMinutesTimer is set given inputBoxTimer
+    testableTableOfCards is set new empty list
     */
     public CardBox(int inputCardBoxNum, int inputBoxTimer) {
         tableOfCards = new ArrayList<>();

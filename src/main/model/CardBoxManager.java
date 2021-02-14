@@ -30,6 +30,9 @@ public class CardBoxManager {
     Fifth card box has cardBoxNum of 1 and has default box timer of 160 minutes
     Box timer is customizable to suit user's needs
 
+
+    First card box is the starting card box with shortest box timer where card is tested frequently
+    Fifth card box is the last card box with longest box timer where card is tested infrequently.
     These five cards are stored in the listOfCardBoxes.
 
     */
