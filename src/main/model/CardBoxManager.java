@@ -24,15 +24,21 @@ public class CardBoxManager {
     EFFECTS:
     Constructs 5 card boxes
     First card box has cardBoxNum of 1 and has default box timer of 0 minutes
-    Second card box has cardBoxNum of 1 and has default box timer of 20 minutes
-    Third card box has cardBoxNum of 1 and has default box timer of 40 minutes
-    Fourth card box has cardBoxNum of 1 and has default box timer of 80 minutes
-    Fifth card box has cardBoxNum of 1 and has default box timer of 160 minutes
+    or once the card is in the card box, user can be tested immediately
+
+    Second card box has cardBoxNum of 2 and has default box timer of 20 minutes,
+    or once the card is in the card box, user can tested after 20 minutes.
+
+    Third card box has cardBoxNum of 3 and has default box timer of 40 minutes,
+    or once the card is in the card box, user can tested after 40 minutes.
+
+    Fourth card box has cardBoxNum of 4 and has default box timer of 80 minutes
+    or once the card is in the card box, user can tested after 80 minutes.
+
+    Fifth card box has cardBoxNum of 5 and has default box timer of 160 minutes
+    or once the card is in the card box, user can tested after 160 minutes.
+
     Box timer is customizable to suit user's needs
-
-
-    First card box is the starting card box with shortest box timer where card is tested frequently
-    Fifth card box is the last card box with longest box timer where card is tested infrequently.
     These five cards are stored in the listOfCardBoxes.
 
     */

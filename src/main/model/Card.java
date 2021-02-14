@@ -40,7 +40,7 @@ public class Card {
     sets the card's time given inputTimeUntilTestedAgain
     Card ID is incremented for every new card
     First card ID is 0, second card is 1, third card is 2.
-    cardID is unique positive integer not assigned to any other card
+    cardID is unique identifier using 0 and positive integer
     */
     public Card(String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain) {
         frontInfo = inputFrontInfo;
@@ -55,7 +55,7 @@ public class Card {
     constructs card object given inputFrontInfo (question) and inputBackInfo (answer) of the card.
     sets the card's time given inputTimeUntilTestedAgain
     Card ID is set with given inputID
-    cardID is unique positive integer not assigned to any other card
+    cardID is unique identifier using 0 and positive integer
         */
     public Card(String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain, int inputID) {
         frontInfo = inputFrontInfo;

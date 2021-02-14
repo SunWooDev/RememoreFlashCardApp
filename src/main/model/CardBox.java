@@ -4,7 +4,13 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+/*
+Leitner system is a studying technique that uses 1) flash cards and 2) boxes.
+For more information about the Leitner system, please read README.md.
+CardBox class represents a card box that users put the flash card in to determine
+when to study the flash card next time.
 
+ */
 
 public class CardBox {
 
@@ -25,8 +31,6 @@ public class CardBox {
     tableOfCards is set a new empty array list. tableOfCards is the cards in the CardBox object.
     cardBoxNum is set with given inputCardBoxNum.
     For relationship between cardBoxNum, timer, frequency of testing, refer to cardBoxManager constructor EFFECTS
-
-
     boxMinutesTimer is set given inputBoxTimer
     testableTableOfCards is set new empty list
     */
