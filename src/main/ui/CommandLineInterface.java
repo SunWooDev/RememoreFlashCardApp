@@ -3,6 +3,7 @@ package ui;
 import model.Card;
 import model.CardBox;
 import model.CardBoxManager;
+import persistence.Persistence;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -16,18 +17,21 @@ The class separates from code that represents the model and code that represents
 public class CommandLineInterface {
 
     //fields--------------------------------------------------------------
-    private final CardBoxManager soleCardBoxManager;
+    private final Persistence persistenceObj;
     private final Scanner scannerObj;
+    private final CardBoxManager soleCardBoxManager;
+
 
 
     //Constructor---------------------------------------------------------
     //REQUIRES: X
     //EFFECTS: constructs CommandLineInterface
     //and initializes soleCardBoxManager and scannerObj
-    public CommandLineInterface() {
+    public CommandLineInterface(Persistence inputPersistObj, CardBoxManager inputSoleCardBoxManager) {
         //wrap card box manager
-        soleCardBoxManager = new CardBoxManager();
+        persistenceObj = inputPersistObj;
         scannerObj = new Scanner(System.in);
+        soleCardBoxManager = inputSoleCardBoxManager;
     }
 
     //Main menu---------------------------------------------------------
@@ -51,19 +55,28 @@ public class CommandLineInterface {
 
                 chooseBoxNum = scannerObj.nextInt();
 
-                switch (chooseBoxNum) {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                        boxMenuUI(chooseBoxNum);
-                        break;
-
-                    default:
-                        System.out.print("\nYou have selected an invalid option.\n\n");
-                        break;
+                if (1 <= chooseBoxNum && chooseBoxNum <= 5) {
+                    boxMenuUI(chooseBoxNum);
+                } else if (chooseBoxNum == 6) {
+                    persistenceObj.saveCards();
+                } else {
+                    System.out.print("\nYou have selected an invalid option.\n\n");
                 }
+//                switch (chooseBoxNum) {
+//                    case 1:
+//                    case 2:
+//                    case 3:
+//                    case 4:
+//                    case 5:
+//                        boxMenuUI(chooseBoxNum);
+//                        break;
+//                    case 6:
+//                        persistenceObj.saveCards();
+//                        break;
+//                    default:
+//                        System.out.print("\nYou have selected an invalid option.\n\n");
+//                        break;
+//                }
 
             } catch (InputMismatchException e) {
                 System.err.println("Type in a number");
@@ -85,6 +98,7 @@ public class CommandLineInterface {
     3: Box 3 Menu
     4: Box 4 Menu
     5: Box 5 Menu
+    6: Save all cards
    */
     private void printMainMenu() {
         System.out.println("\nREMEMORE: Leitner System Software");
@@ -93,6 +107,8 @@ public class CommandLineInterface {
         for (int boxNum = 1; boxNum <= 5; boxNum++) {
             System.out.println(boxNum + ") Box " + boxNum);
         }
+        System.out.println("6) Save all cards");
+
     }
 
 

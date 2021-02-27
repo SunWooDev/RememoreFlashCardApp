@@ -9,10 +9,13 @@ There is only one cardBox manager.
  */
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardBoxManager {
+public class CardBoxManager implements Writable {
 
     //Fields------------------------------------------------------------------------------------------
 
@@ -127,6 +130,26 @@ public class CardBoxManager {
 
     }
 
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Card Boxes", listOfCardBoxesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray listOfCardBoxesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (CardBox cardBoxElement : listOfCardBoxes) {
+            jsonArray.put(cardBoxElement.toJson());
+        }
+
+        return jsonArray;
+    }
+
     //Private methods----------------------------------------------------------------------------------
 
 
@@ -135,6 +158,7 @@ public class CardBoxManager {
     public List<CardBox> getListOfCardBoxes() {
         return listOfCardBoxes;
     }
+
 
 
 }

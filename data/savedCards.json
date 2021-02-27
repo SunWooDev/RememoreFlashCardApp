@@ -1,0 +1,27 @@
+{"Card Boxes": [
+    {
+        "card box number": 1,
+        "Cards": [{
+            "backInfo": "world",
+            "cardID": 0,
+            "timeUntilTestedAgain": 0,
+            "frontInfo": "hello"
+        }]
+    },
+    {
+        "card box number": 2,
+        "Cards": []
+    },
+    {
+        "card box number": 3,
+        "Cards": []
+    },
+    {
+        "card box number": 4,
+        "Cards": []
+    },
+    {
+        "card box number": 5,
+        "Cards": []
+    }
+]}

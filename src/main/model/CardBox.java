@@ -1,6 +1,9 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +15,7 @@ when to study the flash card next time.
 
  */
 
-public class CardBox {
+public class CardBox implements Writable {
 
     //Fields------------------------------------------------------------------
 
@@ -141,7 +144,24 @@ public class CardBox {
         return null;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("card box number", cardBoxNum);
+        json.put("Cards", tableOfCardsToJson());
+        return json;
+    }
 
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray tableOfCardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Card cardElement : tableOfCards) {
+            jsonArray.put(cardElement.toJson());
+        }
+
+        return jsonArray;
+    }
 
 
 

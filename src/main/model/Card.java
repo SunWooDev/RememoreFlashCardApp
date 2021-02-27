@@ -10,7 +10,9 @@ Back side is where users type in their answer.
 
  */
 
-public class Card {
+import org.json.JSONObject;
+
+public class Card implements Writable {
 
 
     //Fields------------------------------------------------------------------------------------------
@@ -82,6 +84,16 @@ public class Card {
                 + ", timeUntilTestedAgain=" + timerUntilTestedAgain
                 + ", ID=" + cardID
                 + '}';
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("frontInfo", frontInfo);
+        json.put("backInfo", backInfo);
+        json.put("timeUntilTestedAgain", timerUntilTestedAgain);
+        json.put("cardID", cardID);
+        return json;
     }
 
     //Private methods----------------------------------------------------------------------------------
