@@ -1,27 +1,72 @@
-{"Card Boxes": [
+{"cardBoxes": [
     {
-        "card box number": 1,
-        "Cards": [{
-            "backInfo": "world",
-            "cardID": 0,
-            "timeUntilTestedAgain": 0,
-            "frontInfo": "hello"
-        }]
+        "cards": [
+            {
+                "backInfo": "Answer 2",
+                "cardID": 0,
+                "timeUntilTestedAgain": 0,
+                "frontInfo": "Question 1"
+            },
+            {
+                "backInfo": "Answer 2",
+                "cardID": 1,
+                "timeUntilTestedAgain": 0,
+                "frontInfo": "Question 2"
+            },
+            {
+                "backInfo": "Blue",
+                "cardID": 2,
+                "timeUntilTestedAgain": 0,
+                "frontInfo": "What color is sky"
+            },
+            {
+                "backInfo": "cheese pizza",
+                "cardID": 3,
+                "timeUntilTestedAgain": 0,
+                "frontInfo": "Favorite piza"
+            },
+            {
+                "backInfo": "lamborghini",
+                "cardID": 0,
+                "timeUntilTestedAgain": 0,
+                "frontInfo": "Favorite carf"
+            }
+        ],
+        "cardBoxNumber": 1
     },
     {
-        "card box number": 2,
-        "Cards": []
+        "cards": [
+            {
+                "backInfo": "pineapple",
+                "cardID": 4,
+                "timeUntilTestedAgain": 20,
+                "frontInfo": "favorite toppings"
+            },
+            {
+                "backInfo": "purple",
+                "cardID": 5,
+                "timeUntilTestedAgain": 20,
+                "frontInfo": "Favorite color"
+            },
+            {
+                "backInfo": "John",
+                "cardID": 6,
+                "timeUntilTestedAgain": 20,
+                "frontInfo": "My name"
+            }
+        ],
+        "cardBoxNumber": 2
     },
     {
-        "card box number": 3,
-        "Cards": []
+        "cards": [],
+        "cardBoxNumber": 3
     },
     {
-        "card box number": 4,
-        "Cards": []
+        "cards": [],
+        "cardBoxNumber": 4
     },
     {
-        "card box number": 5,
-        "Cards": []
+        "cards": [],
+        "cardBoxNumber": 5
     }
 ]}

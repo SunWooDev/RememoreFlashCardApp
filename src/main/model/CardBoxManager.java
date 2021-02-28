@@ -135,7 +135,7 @@ public class CardBoxManager implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("Card Boxes", listOfCardBoxesToJson());
+        json.put("cardBoxes", listOfCardBoxesToJson());
         return json;
     }
 

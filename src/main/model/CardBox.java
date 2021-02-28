@@ -61,6 +61,12 @@ public class CardBox implements Writable {
         tableOfCards.add(newCard);
     }
 
+    public void loadCard(Card inputLoadCard) {
+
+        //add card into the table of cards
+        tableOfCards.add(inputLoadCard);
+    }
+
     //REQUIRES: inputID must be existing card ID in the tableOfCards.
     //MODIFIES: this
     //EFFECTS: removes the card given inputID in the tableOfCards
@@ -147,8 +153,8 @@ public class CardBox implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("card box number", cardBoxNum);
-        json.put("Cards", tableOfCardsToJson());
+        json.put("cardBoxNumber", cardBoxNum);
+        json.put("cards", tableOfCardsToJson());
         return json;
     }
 

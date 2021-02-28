@@ -16,6 +16,7 @@ public class Persistence {
     public Persistence(CardBoxManager inputSoleCardBoxManager) {
         soleCardBoxManager = inputSoleCardBoxManager;
         jsonWriterObj = new JsonWriter(JSON_STORE);
+        jsonReaderObj = new JsonReader(JSON_STORE,soleCardBoxManager);
 
     }
 
@@ -29,11 +30,22 @@ public class Persistence {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
 
-
     }
 
 
-    public CardBoxManager getSoleCardBoxManager() {
-        return soleCardBoxManager;
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    public void loadCards() {
+        try {
+            soleCardBoxManager = jsonReaderObj.read();
+            System.out.println("Loaded from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
+
+
+
+
 }

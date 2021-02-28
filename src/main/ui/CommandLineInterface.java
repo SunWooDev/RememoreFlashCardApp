@@ -47,6 +47,7 @@ public class CommandLineInterface {
      Other inputs: other inputs requires the user to input again
 */
     public void mainMenuUI() {
+        persistenceObj.loadCards();
 
         int chooseBoxNum = 0;
         do {
