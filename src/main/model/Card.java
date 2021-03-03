@@ -12,57 +12,63 @@ Back side is where users type in their answer.
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Card implements Writable {
 
 
     //Fields------------------------------------------------------------------------------------------
     private String frontInfo; //front side of the card where user types in a question
     private String backInfo; //back side of the card where user types in the answer
+    /*
+    startTime is the time when box timer starts such as Mon Mar 01 15:07:40 PST 2021
+    startTime is used to figure out the dueTime when card can be tested by adding startTime by cardBox's timer
 
-/*  timerUntilTestedAgain represents minutes until the card can be tested again.
-    The reason why there timer for cardBox and card is that there can be two cards with different timer in the same box.
-    For example, let's say that first box has timer of 30 minutes.
-    This happens when the user creates a card in the first box, close the application for 10 minutes,
-    and create another card in the same box.
-    The card created earlier has 20 minutes left and the recently created card has 30 minutes left until it is ready
-    to be tested again.
-    Hence, CardBox's timer represents initial value is Card's timer
-    Card timer ticks down when the application is closed.
-    */
-    private int timerUntilTestedAgain;
+    startTime is set to the current time when
+    -new card is added
+    -moved to another box
+
+    startTime is set to whatever time in savedCards.json when loaded
+
+    the due time is compared with the current time
+    if the current time is after the due time, card can be tested
+    else (the current time ie before the due time), card can't be tested yet.
+     */
+    private Date startTime;
     private final int cardID; //card ID is unique
     private static int nextCardID; //tracks ID of next card created
 
 
     //Constructors------------------------------------------------------------------------------------
 
-/*  REQUIRES: inputTimeUntilTestedAgain >= 0 as the timer can not be negative.
+/*  REQUIRES: inputStartDate is current time because this constructor is used for creating a new card
     EFFECTS:
     constructs card object given inputFrontInfo (question) and inputBackInfo (answer) of the card.
-    sets the card's time given inputTimeUntilTestedAgain
+    sets the card's startTime given inputStartDate
     Card ID is incremented for every new card
     First card ID is 0, second card is 1, third card is 2.
     cardID is unique identifier using 0 and positive integer
     */
-    public Card(String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain) {
+    public Card(String inputFrontInfo, String inputBackInfo, Date inputStartDate) {
         frontInfo = inputFrontInfo;
         backInfo = inputBackInfo;
-        timerUntilTestedAgain = inputTimeUntilTestedAgain;
+        startTime = inputStartDate;
         cardID = nextCardID;
         nextCardID++;
     }
 
-    /*  REQUIRES: inputTimeUntilTestedAgain >= 0 as the timer can not be negative.
+    /*  REQUIRES: X
         EFFECTS:
-    constructs card object given inputFrontInfo (question) and inputBackInfo (answer) of the card.
-    sets the card's time given inputTimeUntilTestedAgain
-    Card ID is set with given inputID
-    cardID is unique identifier using 0 and positive integer
+        constructs card object given inputFrontInfo (question) and inputBackInfo (answer) of the card.
+        sets the card's startTime given inputStartTime
+        Card ID is set with given inputID
+        cardID is unique identifier using 0 and positive integer
         */
-    public Card(String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain, int inputID) {
+    public Card(String inputFrontInfo, String inputBackInfo, Date inputStartTime, int inputID) {
         frontInfo = inputFrontInfo;
         backInfo = inputBackInfo;
-        timerUntilTestedAgain = inputTimeUntilTestedAgain;
+        startTime = inputStartTime;
         cardID = inputID;
 
     }
@@ -73,7 +79,7 @@ public class Card implements Writable {
 
     //REQUIRES: X
     //MODIFIES: X
-    //EFFECTS: represent Card object as string
+    //EFFECTS: returns Card object as string with attributes of frontInfo, backInfo, startTime, cardID
     @Override
     public String toString() {
         return "Card{"
@@ -81,17 +87,26 @@ public class Card implements Writable {
                 + '\''
                 + ", backInfo='" + backInfo
                 + '\''
-                + ", timeUntilTestedAgain=" + timerUntilTestedAgain
+                + ", startTime=" + startTime
                 + ", ID=" + cardID
                 + '}';
     }
 
+
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: returns Card as a JSON Object
+    //CITE: toJson() is inspired from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("frontInfo", frontInfo);
         json.put("backInfo", backInfo);
-        json.put("timeUntilTestedAgain", timerUntilTestedAgain);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(startTime);
+
+        json.put("startTime", formattedDate);
         json.put("cardID", cardID);
         return json;
     }
@@ -125,17 +140,13 @@ public class Card implements Writable {
     }
 
 
-
-    public int getTimerUntilTestedAgain() {
-        return timerUntilTestedAgain;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setTimerUntilTestedAgain(int timerUntilTestedAgain) {
-        this.timerUntilTestedAgain = timerUntilTestedAgain;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
-
-
-
 
     public static int getNextCardID() {
         return nextCardID;
@@ -146,4 +157,3 @@ public class Card implements Writable {
     }
 
 }
-

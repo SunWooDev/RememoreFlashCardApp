@@ -1,8 +1,12 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,7 +85,10 @@ public class CardBoxManagerTest {
 
         //add a card to cardBoxOne
         CardBox cardBoxOne = cardBoxManagerObj.findCardBoxInCardBoxManager(1);
-        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardWithExpiredTimer = new Card("Question", "Answer",currentDate,0);
         cardBoxOne.getTableOfCards().add( cardWithExpiredTimer );
         //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
         cardBoxOne.readyToTestCards();
@@ -104,9 +111,14 @@ public class CardBoxManagerTest {
         //When user get a testing card correctly, the card moves to the next box and timer is set to the next box's timer
         //if the card is at the last box, the card stays and timer resets the the last box's
 
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+
         //add a card to cardBoxOne
         CardBox cardBoxFive = cardBoxManagerObj.findCardBoxInCardBoxManager(5);
-        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        cardBoxFive.setBoxMinutesTimer(0);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",currentDate,0);
         cardBoxFive.getTableOfCards().add( cardWithExpiredTimer );
         //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
         cardBoxFive.readyToTestCards();
@@ -128,10 +140,12 @@ public class CardBoxManagerTest {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
         //When user get a testing card incorrect, the card moves to the previous box and timer is set to the previous box's timer
         //if the card is at the first box, the card stays and timer resets the the first box's
-
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
         //add a card to cardBoxThree
         CardBox cardBoxThree = cardBoxManagerObj.findCardBoxInCardBoxManager(3);
-        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        cardBoxThree.setBoxMinutesTimer(0);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",currentDate,0);
         cardBoxThree.getTableOfCards().add( cardWithExpiredTimer );
         //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
         cardBoxThree.readyToTestCards();
@@ -152,10 +166,11 @@ public class CardBoxManagerTest {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
         //When user get a testing card incorrect, the card moves to the previous box and timer is set to the previous box's timer
         //if the card is at the first box, the card stays and timer resets the the first box's
-
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
         //add a card to cardBoxThree
         CardBox cardBoxOne = cardBoxManagerObj.findCardBoxInCardBoxManager(1);
-        Card cardWithExpiredTimer = new Card("Question", "Answer",0,0);
+        Card cardWithExpiredTimer = new Card("Question", "Answer",currentDate,0);
         cardBoxOne.getTableOfCards().add( cardWithExpiredTimer );
         //ready to test cards by searching for cards with expired timer and putting them into testableTableOfCards
         cardBoxOne.readyToTestCards();
@@ -167,5 +182,51 @@ public class CardBoxManagerTest {
         //The card should be in the first box
         assertTrue(cardBoxOne.getTableOfCards().contains(cardWithExpiredTimer));
     }
+
+
+    @Test
+    public void testToJson() {
+        CardBoxManager cardBoxManagerObj = new CardBoxManager();
+        JSONObject cardBoxManagerJson = cardBoxManagerObj.toJson();
+        JSONArray listOfCardBoxes = cardBoxManagerJson.getJSONArray("cardBoxes");
+
+        //first box
+        JSONObject firstBoxJson = listOfCardBoxes.getJSONObject(0);
+        int firstBoxNumber = firstBoxJson.getInt("cardBoxNumber");
+        assertEquals(1, firstBoxNumber);
+
+        //second box
+        JSONObject secondBoxJson = listOfCardBoxes.getJSONObject(1);
+        int secondBoxJsonNumber = secondBoxJson.getInt("cardBoxNumber");
+        assertEquals(2, secondBoxJsonNumber);
+
+        //third box
+        JSONObject thirdBoxJson = listOfCardBoxes.getJSONObject(2);
+        int thirdBoxJsonNumber = thirdBoxJson.getInt("cardBoxNumber");
+        assertEquals(3, thirdBoxJsonNumber);
+
+
+        //fourth box
+        JSONObject fourthBoxJson = listOfCardBoxes.getJSONObject(3);
+        int fourthBoxJsonNumber = fourthBoxJson.getInt("cardBoxNumber");
+        assertEquals(4, fourthBoxJsonNumber);
+
+        //fifth box
+        JSONObject fifthBoxJson = listOfCardBoxes.getJSONObject(4);
+        int fifthBoxJsonNumber = fifthBoxJson.getInt("cardBoxNumber");
+        assertEquals(5, fifthBoxJsonNumber);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 }

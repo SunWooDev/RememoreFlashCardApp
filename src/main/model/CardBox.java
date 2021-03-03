@@ -4,9 +4,8 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 /*
 Leitner system is a studying technique that uses 1) flash cards and 2) boxes.
 For more information about the Leitner system, please read README.md.
@@ -50,17 +49,22 @@ public class CardBox implements Writable {
     //REQUIRES: X
     //MODIFIES: this
     //EFFECTS: constructs a new card given a card's front side information and back side information and add the card
-    //to the tableOfCards
+    //to the tableOfCards and startTime is set to the current time when card is added.
     public void addCard(String inputFrontInfo, String inputBackInfo) {
-        //initial card timer is box timer.
-        int boxMinutesTimer = getBoxMinutesTimer();
+
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
         //make a card
-        Card newCard = new Card(inputFrontInfo, inputBackInfo, boxMinutesTimer);
+        Card newCard = new Card(inputFrontInfo, inputBackInfo, currentDate);
 
         //add card into the table of cards
         tableOfCards.add(newCard);
     }
 
+    //REQUIRES: X
+    //MODIFIES: this
+    //EFFECTS: load card into tableOfCards given inputLoadCard from savedCards.json
     public void loadCard(Card inputLoadCard) {
 
         //add card into the table of cards
@@ -150,6 +154,11 @@ public class CardBox implements Writable {
         return null;
     }
 
+
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: returns CardBox as a JSON Object
+    //CITE: toJson() is inspired from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -158,7 +167,11 @@ public class CardBox implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: returns cards in this cardBox as a JSON array
+    //CITE: toJson() is inspired from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     private JSONArray tableOfCardsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -172,20 +185,51 @@ public class CardBox implements Writable {
 
 
     //Private Methods-------------------------------------------------------------------------
-    //REQUIRES: X (if tableOfCards is empty, then it is guaranteed that there are no cards to test)
+    //REQUIRES: X
+    // (It doesn't require tableOfCards to be non-empty. If tableOfCards is empty,
+    // then it is simply guaranteed that there are no cards to test)
     //MODIFIES: this
-    //EFFECTS: finds cards with expired timer (timer == 0) in tableOfCards and put them into testableTableOfCards
+    //EFFECTS: finds testable cards where current time is same as or
+    // exceeds due time calculated with startTime + cardBox timer
+    // in tableOfCards and put them into testableTableOfCards
     private void findCardsToTest() {
         //find card in the tableOfCards
         for (Card cardInTableOfCards : tableOfCards) {
             //if the card has boxTimer of 0
-            if (cardInTableOfCards.getTimerUntilTestedAgain() == 0) {
+            //startTime + box timer > current time
+            //current time
+            Calendar cal = Calendar.getInstance();
+            Date currentTime = cal.getTime();
+
+            //start time + boxMinutesTimer
+            Date startTime = cardInTableOfCards.getStartTime();
+            Date timeToTest = addMinutesToDate(startTime, boxMinutesTimer);
+
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy:MM:HH:mm:ss");
+//            System.out.println(sdf.format(startTime));
+//            System.out.println(sdf.format(timeToTest));
+//            System.out.println(sdf.format(currentTime));
+
+            //start time + card box timer = time you can test
+            //current time has to be after or equal to time you can test
+            if (currentTime.after(timeToTest) || currentTime.compareTo(timeToTest) == 0) {
                 //move into testableTableOfCards
                 testableTableOfCards.add(cardInTableOfCards);
             }
         }
     }
 
+
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: given a date, return a new date with given minutes added to it.
+    private Date addMinutesToDate(Date date, int minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, minutes);
+        return calendar.getTime();
+    }
 
     //Getters and setters--------------------------------------------------------------------------
 

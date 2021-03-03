@@ -40,9 +40,11 @@ Moreover, by using an efficient learning technique, I can also achieve better wo
 - As a user, I want to be able to remove and modify an existing flash card
 - As a user, I want to be able to move an existing flash card to different box
 - As a user, I want to be able to modify box timer for user's liking and customization
-- As a user, I want to be able to test cards in a box with expired timer.
+- As a user, I want to be able to test cards in a box when current time is exactly or exceeds due time.*
 - As a user, I want to be able to save cards and not have to enter the cards again when using the program the next time.
 - As a user, I want to be able to load cards automatically from the start of application.
+
+**Due timer is calculated by start time + card box timer. Start time is set to the time when the card is first created and when the card is moved to previous or next box*
 
 #### **Grading Scheme**
 - 20 pts - (code coverage score * 20) - so 100% code coverage yields a score of 20, whereas 0% code coverage yields a score of 0

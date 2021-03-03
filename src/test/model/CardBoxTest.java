@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,12 +48,42 @@ public class CardBoxTest {
         Card actualCard = tableOfCards.get(0);
         assertEquals("Question", actualCard.getFrontInfo());
         assertEquals("Answer", actualCard.getBackInfo());
-        assertEquals(22, actualCard.getTimerUntilTestedAgain());
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        Date currentDate = cal.getTime();
+
+        actualCard.setStartTime(currentDate);
+
+        assertEquals(currentDate, actualCard.getStartTime());
         assertEquals(0, actualCard.getCardID());
 
     }
 
 
+    @Test
+    public void testLoadCard() {
+        //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
+        //Therefore reset the cardID back to 0
+        Card.setNextCardID(0);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        Date currentDate = cal.getTime();
+
+        CardBox cardBoxObj = new CardBox(3,22);
+        Card loadCard = new Card("Question","Answer", currentDate,2);
+        cardBoxObj.loadCard(loadCard);
+        List<Card> tableOfCards = cardBoxObj.getTableOfCards();
+
+        //test size is 1
+        assertEquals(1, tableOfCards.size());
+        Card actualCard = tableOfCards.get(0);
+        assertEquals("Question", actualCard.getFrontInfo());
+        assertEquals("Answer", actualCard.getBackInfo());
+        assertEquals(currentDate, actualCard.getStartTime());
+        assertEquals(2, actualCard.getCardID());
+
+    }
 
 
     @Test
@@ -324,6 +358,37 @@ public class CardBoxTest {
 
 
     }
+
+
+    @Test
+    public void testToJson() {
+        //card's nextCardID is a static variable that remembers accumulation from previous card instantiations.
+        //Therefore reset the cardID back to 0
+        Card.setNextCardID(0);
+
+        CardBox cardBoxOne = new CardBox( 1, 20);
+        cardBoxOne.addCard( "What does the duck say?", "quack" );
+
+        JSONObject cardBoxJson = cardBoxOne.toJson();
+        int cardBoxNum = cardBoxJson.getInt("cardBoxNumber");
+        assertEquals(1, cardBoxNum);
+
+
+
+        JSONArray tableOfCards = cardBoxJson.getJSONArray("cards");
+        JSONObject cardJson = tableOfCards.getJSONObject(0);
+
+        assertEquals(1, tableOfCards.length());
+        assertEquals("What does the duck say?", cardJson.getString("frontInfo"));
+        assertEquals("quack", cardJson.getString("backInfo"));
+        assertEquals(0, cardJson.getInt("cardID"));
+
+
+
+    }
+
+
+
 
 
     //Test Getters and Setters------------------------------------------------------------------------------

@@ -1,6 +1,10 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,15 +13,20 @@ class CardTest {
     //test the first constructor with parameter String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain
     @Test
     public void testConstructor1() {
-        Card cardObj = new Card("What is the color of the sky?", "blue", 2);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020, Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is the color of the sky?", "blue", currentDate);
         String frontInfo = cardObj.getFrontInfo();
         assertEquals("What is the color of the sky?", frontInfo);
 
         String backInfo = cardObj.getBackInfo();
         assertEquals("blue", backInfo);
 
-        int cardTimer = cardObj.getTimerUntilTestedAgain();
-        assertEquals(2, cardTimer);
+        Date startTime = cardObj.getStartTime();
+
+        assertEquals(currentDate, startTime);
 
         int firstCardID = cardObj.getCardID();
         assertEquals(0, firstCardID);
@@ -27,15 +36,19 @@ class CardTest {
     //test second constructor with parameter String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain, int inputID
     @Test
     public void testConstructor2() {
-        Card cardObj = new Card("My favorite color?", "red", 77, 5);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("My favorite color?", "red", currentDate, 5);
         String frontInfo = cardObj.getFrontInfo();
         assertEquals("My favorite color?", frontInfo);
 
         String backInfo = cardObj.getBackInfo();
         assertEquals("red", backInfo);
 
-        int cardTimer = cardObj.getTimerUntilTestedAgain();
-        assertEquals(77, cardTimer);
+        Date startTime = cardObj.getStartTime();
+        assertEquals(currentDate, startTime);
 
         int firstCardID = cardObj.getCardID();
         assertEquals(5, firstCardID);
@@ -44,10 +57,39 @@ class CardTest {
 
     @Test
     public void testToString() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
         String cardAsString = cardObj.toString();
-        String expectedString = "Card{frontInfo='What is 1+1?', backInfo='2', timeUntilTestedAgain=20, ID=3}";
+        String expectedString = "Card{frontInfo='What is 1+1?', backInfo='2', startTime=Fri Feb 07 12:00:00 KST 2020, ID=3}";
         assertEquals(expectedString, cardAsString);
+
+
+    }
+
+    @Test
+    public void testToJson() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        Date currentDate = cal.getTime();
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
+
+        JSONObject cardJsonObj = cardObj.toJson();
+        String frontInfo = cardJsonObj.getString("frontInfo");
+        assertEquals("What is 1+1?", frontInfo);
+
+        String backInfo = cardJsonObj.getString("backInfo");
+        assertEquals("2", backInfo);
+
+        String startTime = cardJsonObj.getString("startTime");
+        assertEquals("2020-02-07 12:00:00", startTime);
+
+        int cardID = cardJsonObj.getInt("cardID");
+        assertEquals(3, cardID);
+
+
 
 
     }
@@ -56,14 +98,20 @@ class CardTest {
     //Test Getters and Setters------------------------------------------------------------------------------
     @Test
     public void testGetCardID() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
         assertEquals(3, cardObj.getCardID());
     }
 
 
     @Test
     public void testGetFrontInfo() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
 
         assertEquals("What is 1+1?", cardObj.getFrontInfo());
 
@@ -71,7 +119,10 @@ class CardTest {
 
     @Test
     public void testSetFrontInfo() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
         cardObj.setFrontInfo("What is life?");
         assertEquals("What is life?", cardObj.getFrontInfo());
 
@@ -80,14 +131,20 @@ class CardTest {
 
     @Test
     public void testGetBackInfo() {
-        Card cardObj = new Card("What is 1+1?", "Two", 20, 3);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "Two", currentDate, 3);
         assertEquals("Two", cardObj.getBackInfo());
 
     }
 
     @Test
     public void testSetBackInfo() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
         cardObj.setBackInfo("Number 2");
         assertEquals("Number 2", cardObj.getBackInfo());
 
@@ -96,15 +153,23 @@ class CardTest {
 
     @Test
     public void testGetTimerUntilTestedAgain() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
-        assertEquals(20,cardObj.getTimerUntilTestedAgain());
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
+        assertEquals(currentDate,cardObj.getStartTime());
     }
 
     @Test
     public void testSetTimerUntilTestedAgain() {
-        Card cardObj = new Card("What is 1+1?", "2", 20, 3);
-        cardObj.setTimerUntilTestedAgain(555);
-        assertEquals(555,cardObj.getTimerUntilTestedAgain());
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+        Card cardObj = new Card("What is 1+1?", "2", null, 3);
+
+
+
+        cardObj.setStartTime(currentDate);
+        assertEquals(currentDate,cardObj.getStartTime());
     }
 
 
@@ -123,7 +188,9 @@ class CardTest {
     @Test
     public void testSetNextCardID() {
         Card.setNextCardID( 55 );
-        Card cardObj = new Card("What is 1+1?", "2", 20);
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+        Card cardObj = new Card("What is 1+1?", "2", currentDate);
 
         assertEquals( 55, cardObj.getCardID() );
     }

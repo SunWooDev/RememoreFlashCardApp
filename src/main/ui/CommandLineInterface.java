@@ -3,7 +3,6 @@ package ui;
 import model.Card;
 import model.CardBox;
 import model.CardBoxManager;
-import persistence.Persistence;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -26,7 +25,7 @@ public class CommandLineInterface {
     //Constructor---------------------------------------------------------
     //REQUIRES: X
     //EFFECTS: constructs CommandLineInterface
-    //and initializes soleCardBoxManager and scannerObj
+    //and initializes soleCardBoxManager, persistence, and scannerObj
     public CommandLineInterface(Persistence inputPersistObj, CardBoxManager inputSoleCardBoxManager) {
         //wrap card box manager
         persistenceObj = inputPersistObj;
@@ -44,13 +43,14 @@ public class CommandLineInterface {
      3: Box menu for third box
      4: Box menu for fourth box
      5: Box menu for fifth box
+     6: Save all cards
      Other inputs: other inputs requires the user to input again
 */
     public void mainMenuUI() {
         persistenceObj.loadCards();
 
         int chooseBoxNum = 0;
-        do {
+        while (true) {
             try {
                 printMainMenu();
 
@@ -60,6 +60,8 @@ public class CommandLineInterface {
                     boxMenuUI(chooseBoxNum);
                 } else if (chooseBoxNum == 6) {
                     persistenceObj.saveCards();
+                } else if (chooseBoxNum == -1) {
+                    break;
                 } else {
                     System.out.print("\nYou have selected an invalid option.\n\n");
                 }
@@ -83,7 +85,7 @@ public class CommandLineInterface {
                 System.err.println("Type in a number");
                 scannerObj.nextLine();
             }
-        } while (chooseBoxNum != -1);
+        }
 
 
     }

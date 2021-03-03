@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CardBoxManager implements Writable {
@@ -87,22 +89,25 @@ public class CardBoxManager implements Writable {
 
     //REQUIRES: inputCurrentCardToTest is an existing card in inputCurrentCardBox's testTableTableOfCards
     //MODIFIES: inputCurrentCardBox, inputCurrentCardBox
-    //EFFECTS: When testing a card, when the user get it correct, the card moves to the next box
-    // and card timer is set to the next box's timer.
-    //If the card is in the last box, the card stays in the last box and timer is reset to the last box's timer.
+    //EFFECTS: When testing a card, if the user get it correct, the card moves to the next box
+    // and card's startTime is set to current time to signify the timer starts from now on.
+    //If the card is in the last box, the card stays in the last box
+    // and card's startTime is set to current time to signify the timer starts from now on.
     public void gotAnswerCorrectly(Card inputCurrentCardToTest, CardBox inputCurrentCardBox) {
-
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
         //if answered correctly and card is at the last box
         if (inputCurrentCardBox.getCardBoxNum() == getListOfCardBoxes().size()) {
-            //card stays and card timer resets
-            inputCurrentCardToTest.setTimerUntilTestedAgain(inputCurrentCardBox.getBoxMinutesTimer());
+            //card stays and set to current date
+
+            inputCurrentCardToTest.setStartTime(currentDate);
         } else {
             //else, if answered correctly and card is not at the last box
             //move the card to next box
             CardBox nextBox = findCardBoxInCardBoxManager(inputCurrentCardBox.getCardBoxNum() + 1);
             inputCurrentCardBox.moveCardToDifferentBox(inputCurrentCardToTest.getCardID(),nextBox);
             //set the timer to next box's timer
-            inputCurrentCardToTest.setTimerUntilTestedAgain(nextBox.getBoxMinutesTimer());
+            inputCurrentCardToTest.setStartTime(currentDate);
         }
 
     }
@@ -110,14 +115,17 @@ public class CardBoxManager implements Writable {
 
     //REQUIRES: inputCurrentCardToTest is an existing card in inputCurrentCardBox's testTableTableOfCards
     //MODIFIES: inputCurrentCardBox, inputCurrentCardBox
-    //EFFECTS: When testing a card, when the user get it incorrect, the card moves to the previous box
-    //and card timer is set to the previous box's timer.
-    // If the card is in the first box, the card stays in the first box and timer is reset to the first box's timer.
+    //EFFECTS: When testing a card, if the user get it incorrect, the card moves to the previous box
+    //and card's startTime is set to current time to signify the timer starts from now on.
+    // If the card is in the first box, the card stays in the first box
+    // and card's startTime is set to current time to signify the timer starts from now on.
     public void gotAnswerIncorrectly(Card inputCurrentCardToTest, CardBox inputCurrentCardBox) {
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
         //if answered incorrectly and card is at the first box
         if (inputCurrentCardBox.getCardBoxNum() == 1) {
             //card stays and card timer resets
-            inputCurrentCardToTest.setTimerUntilTestedAgain(inputCurrentCardBox.getBoxMinutesTimer());
+            inputCurrentCardToTest.setStartTime(currentDate);
 
         } else {
             //else answered incorrectly and card is not at the first box
@@ -125,13 +133,16 @@ public class CardBoxManager implements Writable {
             CardBox previousBox = findCardBoxInCardBoxManager(inputCurrentCardBox.getCardBoxNum() - 1);
             inputCurrentCardBox.moveCardToDifferentBox(inputCurrentCardToTest.getCardID(),previousBox);
             //set the timer to the previous box's timer
-            inputCurrentCardToTest.setTimerUntilTestedAgain(previousBox.getBoxMinutesTimer());
+            inputCurrentCardToTest.setStartTime(currentDate);
         }
 
     }
 
 
-
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: returns CardBoxManager as a JSON Object
+    //CITE: toJson() is inspired from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -139,7 +150,10 @@ public class CardBoxManager implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: returns cardBoxes in this cardBoxManager as a JSON array
+    //CITE: toJson() is inspired from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     private JSONArray listOfCardBoxesToJson() {
         JSONArray jsonArray = new JSONArray();
 
