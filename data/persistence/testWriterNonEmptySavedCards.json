@@ -1,49 +1,54 @@
 {"cardBoxes": [
     {
+        "boxMinutesTimer": 0,
         "cards": [{
             "backInfo": "Back",
             "cardID": 0,
-            "startTime": "2021-03-03 17:18:36",
+            "startTime": "2021-03-15 20:58:07",
             "frontInfo": "Front"
         }],
         "cardBoxNumber": 1
     },
     {
+        "boxMinutesTimer": 20,
         "cards": [
             {
                 "backInfo": "Ans",
                 "cardID": 1,
-                "startTime": "2021-03-03 17:18:36",
+                "startTime": "2021-03-15 20:58:07",
                 "frontInfo": "Question"
             },
             {
                 "backInfo": "Blue",
                 "cardID": 2,
-                "startTime": "2021-03-03 17:18:36",
+                "startTime": "2021-03-15 20:58:07",
                 "frontInfo": "Color of sky"
             }
         ],
         "cardBoxNumber": 2
     },
     {
+        "boxMinutesTimer": 40,
         "cards": [{
             "backInfo": "2",
             "cardID": 3,
-            "startTime": "2021-03-03 17:18:36",
+            "startTime": "2021-03-15 20:58:07",
             "frontInfo": "1+1?"
         }],
         "cardBoxNumber": 3
     },
     {
+        "boxMinutesTimer": 80,
         "cards": [{
             "backInfo": "World",
             "cardID": 4,
-            "startTime": "2021-03-03 17:18:36",
+            "startTime": "2021-03-15 20:58:07",
             "frontInfo": "Hello"
         }],
         "cardBoxNumber": 4
     },
     {
+        "boxMinutesTimer": 160,
         "cards": [],
         "cardBoxNumber": 5
     }

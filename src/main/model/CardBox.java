@@ -3,6 +3,7 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -163,6 +164,7 @@ public class CardBox implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("cardBoxNumber", cardBoxNum);
+        json.put("boxMinutesTimer", boxMinutesTimer);
         json.put("cards", tableOfCardsToJson());
         return json;
     }
@@ -182,6 +184,15 @@ public class CardBox implements Writable {
         return jsonArray;
     }
 
+    //REQUIRES: X
+    //MODIFIES: X
+    //EFFECTS: given a date, return a new date with given minutes added to it.
+    public Date addMinutesToDate(Date date, int minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, minutes);
+        return calendar.getTime();
+    }
 
 
     //Private Methods-------------------------------------------------------------------------
@@ -221,15 +232,6 @@ public class CardBox implements Writable {
     }
 
 
-    //REQUIRES: X
-    //MODIFIES: X
-    //EFFECTS: given a date, return a new date with given minutes added to it.
-    private Date addMinutesToDate(Date date, int minutes) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MINUTE, minutes);
-        return calendar.getTime();
-    }
 
     //Getters and setters--------------------------------------------------------------------------
 

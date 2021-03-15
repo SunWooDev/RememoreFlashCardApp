@@ -11,6 +11,7 @@ There is only one cardBox manager.
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +47,7 @@ public class CardBoxManager implements Writable {
     Box timer is customizable to suit user's needs
     These five cards are stored in the listOfCardBoxes.
 
+    if persistence is used, then the 0, 20, 40, 80, 160 timer is not used. It is loaded from the savedCards.json
     */
 
     public CardBoxManager() {
@@ -147,6 +149,7 @@ public class CardBoxManager implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("cardBoxes", listOfCardBoxesToJson());
+
         return json;
     }
 

@@ -1,14 +1,16 @@
 {"cardBoxes": [
   {
+    "boxMinutesTimer": 0,
     "cards": [{
       "backInfo": "IBM",
       "cardID": 6,
-      "startTime": "2021/02/28 20:43:52",
+      "startTime": "2021-02-28 20:43:52",
       "frontInfo": "favorite computer"
     }],
     "cardBoxNumber": 1
   },
   {
+    "boxMinutesTimer": 0,
     "cards": [
       {
         "backInfo": "apple",
@@ -44,6 +46,7 @@
     "cardBoxNumber": 2
   },
   {
+    "boxMinutesTimer": 0,
     "cards": [
       {
         "backInfo": "bonjour",
@@ -67,10 +70,12 @@
     "cardBoxNumber": 3
   },
   {
+    "boxMinutesTimer": 0,
     "cards": [],
     "cardBoxNumber": 4
   },
   {
+    "boxMinutesTimer": 0,
     "cards": [],
     "cardBoxNumber": 5
   }

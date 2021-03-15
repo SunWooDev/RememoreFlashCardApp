@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +21,12 @@ public class JsonReaderTest {
     public void testConstructor() {
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/testReaderBlankSavedCards.json", cardBoxManager );
+        JsonReader reader = new JsonReader("./data/persistence/testReaderBlankSavedCards.json", cardBoxManager );
 
 
         assertEquals(cardBoxManager, reader.getSoleCardBoxManager());
 
-        assertEquals("./data/testReaderBlankSavedCards.json", reader.getSource());
+        assertEquals("./data/persistence/testReaderBlankSavedCards.json", reader.getSource());
 
 
     }
@@ -34,8 +36,7 @@ public class JsonReaderTest {
     public void testReadNonExistingSavedCardsFile() {
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/thisFileDoesntExist.json", cardBoxManager );
-
+        JsonReader reader = new JsonReader("./data/persistence/aaaaaaa.json", cardBoxManager );
         try {
 //            CardBoxManager loadedCardBoxManager = reader.read();
             reader.read();
@@ -59,7 +60,7 @@ public class JsonReaderTest {
     public void testReadBlankSavedCardsFile() {
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/testReaderBlankSavedCards.json", cardBoxManager );
+        JsonReader reader = new JsonReader("./data/persistence/testReaderBlankSavedCards.json", cardBoxManager );
 
         try {
             //CardBoxManager loadedCardBoxManager = reader.read();
@@ -86,8 +87,11 @@ public class JsonReaderTest {
     public void testReadNonEmptySavedCardsWrongDateFormat() {
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/testReaderNonEmptySavedCardsWrongDateFormat.json",
+        JsonReader reader = new JsonReader("./data/persistence/testReaderNonEmptySavedCardsWrongDateFormat.json",
                 cardBoxManager );
+        Calendar a = Calendar.getInstance();
+        Date currentDate = a.getTime();
+        System.out.println(currentDate);
 
         try {
 //            CardBoxManager loadedCardBoxManager = reader.read();
@@ -104,6 +108,7 @@ public class JsonReaderTest {
             fail("There is nothing to read or incorrect formatting");
         } catch (ParseException e) {
             System.out.println("Incorrect Date Formatting");
+            //for example "startTime": "2021/03/03 17:10:50" not "startTime": "2021-03-03 17:10:50",
             //pass
         }
 
@@ -117,7 +122,7 @@ public class JsonReaderTest {
 
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/testReaderEmptySavedCards.json", cardBoxManager );
+        JsonReader reader = new JsonReader("./data/persistence/testReaderEmptySavedCards.json", cardBoxManager );
 
         try {
             //CardBoxManager loadedCardBoxManager = reader.read();
@@ -164,7 +169,7 @@ public class JsonReaderTest {
     public void testReadNonEmptySavedCards() {
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/testReaderNonEmptySavedCards.json", cardBoxManager );
+        JsonReader reader = new JsonReader("./data/persistence/testReaderNonEmptySavedCards.json", cardBoxManager );
 
         try {
 //            CardBoxManager loadedCardBoxManager = reader.read();

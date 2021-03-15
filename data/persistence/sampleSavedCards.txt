@@ -1,5 +1,6 @@
 {"cardBoxes": [
   {
+    "boxMinutesTimer": 0,
     "cards": [
       {
         "backInfo": "Cat",
@@ -23,6 +24,7 @@
     "cardBoxNumber": 1
   },
   {
+    "boxMinutesTimer": 10,
     "cards": [
       {
         "backInfo": "pineapple",
@@ -40,6 +42,7 @@
     "cardBoxNumber": 2
   },
   {
+    "boxMinutesTimer": 20,
     "cards": [
       {
         "backInfo": "jake",
@@ -57,6 +60,7 @@
     "cardBoxNumber": 3
   },
   {
+    "boxMinutesTimer": 30,
     "cards": [{
       "backInfo": "IBM",
       "cardID": 7,
@@ -66,6 +70,7 @@
     "cardBoxNumber": 4
   },
   {
+    "boxMinutesTimer": 40,
     "cards": [],
     "cardBoxNumber": 5
   }

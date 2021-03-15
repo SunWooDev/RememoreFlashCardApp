@@ -21,8 +21,8 @@ public class JsonWriterTest {
     @Test
     public void testConstructor() {
         //JsonReader Constructor
-        JsonWriter writer = new JsonWriter("./data/testReaderBlankSavedCards.json" );
-        assertEquals("./data/testReaderBlankSavedCards.json", writer.getDestination());
+        JsonWriter writer = new JsonWriter("./data/persistence/testReaderBlankSavedCards.json" );
+        assertEquals("./data/persistence/testReaderBlankSavedCards.json", writer.getDestination());
 
 
     }
@@ -30,7 +30,7 @@ public class JsonWriterTest {
 
     @Test
     public void testOpenInvalidSavedCardsFile() {
-        JsonWriter writer = new JsonWriter("./data/this\0invalid:file.json");
+        JsonWriter writer = new JsonWriter("./data/persistence/this\0invalid:file.json");
 
         try {
             writer.open();
@@ -45,11 +45,11 @@ public class JsonWriterTest {
 
     @Test
     public void testOpenValidSavedCardsFile() {
-        JsonWriter writer = new JsonWriter("./data/testWriterEmptySavedCards.json" );
+        JsonWriter writer = new JsonWriter("./data/persistence/testWriterEmptySavedCards.json" );
 
         try {
             writer.open();
-            PrintWriter printWriter = new PrintWriter(new File("./data/testWriterEmptySavedCards.json"));
+            PrintWriter printWriter = new PrintWriter(new File("./data/persistence/testWriterEmptySavedCards.json"));
             //pass
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -62,14 +62,14 @@ public class JsonWriterTest {
     @Test
     public void testWriteEmptySavedCards() {
         CardBoxManager cardBoxManager = new CardBoxManager();
-        JsonWriter writer = new JsonWriter("./data/testWriterEmptySavedCards.json" );
+        JsonWriter writer = new JsonWriter("./data/persistence/testWriterEmptySavedCards.json" );
 
         try {
             writer.open();
             writer.write(cardBoxManager);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptySavedCards.json", cardBoxManager);
+            JsonReader reader = new JsonReader("./data/persistence/testWriterEmptySavedCards.json", cardBoxManager);
             reader.read();
             //read that there are 5 card boxes
             assertEquals(5, cardBoxManager.getListOfCardBoxes().size());
@@ -108,7 +108,7 @@ public class JsonWriterTest {
     @Test
     public void testWriteNonEmptySavedCards() {
         CardBoxManager cardBoxManager = new CardBoxManager();
-        JsonWriter writer = new JsonWriter("./data/testWriterNonEmptySavedCards.json" );
+        JsonWriter writer = new JsonWriter("./data/persistence/testWriterNonEmptySavedCards.json" );
 
         try {
 
@@ -132,7 +132,7 @@ public class JsonWriterTest {
             cardBoxManager.findCardBoxInCardBoxManager(5).getTableOfCards().clear();
 
 
-            JsonReader reader = new JsonReader("./data/testWriterNonEmptySavedCards.json", cardBoxManager);
+            JsonReader reader = new JsonReader("./data/persistence/testWriterNonEmptySavedCards.json", cardBoxManager);
 
             //CardBoxManager cardBoxManagerLoad = reader.read();
             reader.read();

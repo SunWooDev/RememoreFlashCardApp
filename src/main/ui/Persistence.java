@@ -1,5 +1,6 @@
 package ui;
 
+import model.CardBox;
 import model.CardBoxManager;
 import org.json.JSONException;
 import persistence.JsonReader;
@@ -16,6 +17,10 @@ When loading, the data from savedCards.json is loaded to soleCardBoxManager.
 This class is simply abstraction of of JsonReader and JsonWriter.
 JsonReader and JsonWriter already tests all branches in Persistence class.
 Hence it is redundant to have a seperate test class for persistence
+
+JSONSerializationDemo has persistence method in the WorkRoomApp, which is equivalent to CommandLineInterface class here
+However, persistence method needed to be reused for the GUI, thus persistence method has its own class to be reused
+for gui. You can choose to run the app using GUI or CLI.
  */
 
 
@@ -24,7 +29,7 @@ public class Persistence {
     private CardBoxManager soleCardBoxManager; //model
     private JsonReader jsonReaderObj;
     private JsonWriter jsonWriterObj;
-    private static final String JSON_STORE = "./data/savedCards.json";
+    private static final String JSON_STORE = "./data/persistence/savedCards.json";
 
 
     //REQUIRES: X
@@ -41,8 +46,8 @@ public class Persistence {
 
     //REQUIRES: X
     //MODIFIES: this
-    //EFFECTS: saves cards from soleCardBoxManager to savedCards.json
-    public void saveCards() {
+    //EFFECTS: saves cards and cardbox's timer from soleCardBoxManager to savedCards.json
+    public void save() {
         try {
             jsonWriterObj.open();
             jsonWriterObj.write(soleCardBoxManager);
@@ -58,8 +63,15 @@ public class Persistence {
     //REQUIRES: X
     // MODIFIES: this
     // EFFECTS: saves cards from savedCards.json to soleCardBoxManager
-    public void loadCards() {
+    public void load() {
         try {
+            //clear everything
+            for (int cardBoxNum = 1; cardBoxNum <= soleCardBoxManager.getListOfCardBoxes().size(); cardBoxNum++) {
+                CardBox cardBoxToClear = soleCardBoxManager.findCardBoxInCardBoxManager(cardBoxNum);
+                cardBoxToClear.getTableOfCards().clear();
+            }
+
+
             //soleCardBoxManager = jsonReaderObj.read();
             jsonReaderObj.read();
             System.out.println("Loaded from " + JSON_STORE);

@@ -1,8 +1,9 @@
-package ui;
+package ui.cli;
 
 import model.Card;
 import model.CardBox;
 import model.CardBoxManager;
+import ui.Persistence;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -47,7 +48,7 @@ public class CommandLineInterface {
      Other inputs: other inputs requires the user to input again
 */
     public void mainMenuUI() {
-        persistenceObj.loadCards();
+        persistenceObj.load();
 
         int chooseBoxNum = 0;
         while (true) {
@@ -59,7 +60,7 @@ public class CommandLineInterface {
                 if (1 <= chooseBoxNum && chooseBoxNum <= 5) {
                     boxMenuUI(chooseBoxNum);
                 } else if (chooseBoxNum == 6) {
-                    persistenceObj.saveCards();
+                    persistenceObj.save();
                 } else if (chooseBoxNum == -1) {
                     break;
                 } else {

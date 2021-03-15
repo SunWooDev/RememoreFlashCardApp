@@ -99,6 +99,8 @@ public class JsonReader {
     //CITE: parseCardBox() is inspired from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     private void parseCardBox(JSONObject jsonObjectCardBox) throws ParseException {
         int cardBoxNumber = jsonObjectCardBox.getInt("cardBoxNumber");
+        int boxMinutesTimer = jsonObjectCardBox.getInt("boxMinutesTimer");
+        soleCardBoxManager.findCardBoxInCardBoxManager(cardBoxNumber).setBoxMinutesTimer(boxMinutesTimer);
 
         loadCards(cardBoxNumber,jsonObjectCardBox);
     }
