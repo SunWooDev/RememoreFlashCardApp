@@ -1,5 +1,6 @@
 package ui.cli;
 
+import exception.NoCardFoundException;
 import model.Card;
 import model.CardBox;
 import model.CardBoxManager;
@@ -290,17 +291,25 @@ public class CommandLineInterface {
         System.out.println("Enter card ID to modify");
         int cardIDForModifying = scannerObj.nextInt();
 
-        Card card = cardBoxForModifyingCards.findCardInCardBox(cardIDForModifying); //card is null if not found
-        if (card != null) {
-            scannerObj.nextLine();
-            System.out.println("Overwrite front side of the card");
-            String front = scannerObj.nextLine();
+        try {
+            Card card = cardBoxForModifyingCards.findCardInCardBox(cardIDForModifying); //card is null if not found
+            if (card != null) {
+                scannerObj.nextLine();
+                System.out.println("Overwrite front side of the card");
+                String front = scannerObj.nextLine();
 
-            System.out.println("Overwrite back side of the card");
-            String back = scannerObj.nextLine();
+                System.out.println("Overwrite back side of the card");
+                String back = scannerObj.nextLine();
 
-            cardBoxForModifyingCards.modifyCard(cardIDForModifying, front, back);
+                cardBoxForModifyingCards.modifyCard(cardIDForModifying, front, back);
+            }
+        } catch (NoCardFoundException e) {
+            System.out.println(e.getMessage());
         }
+
+
+
+
 
 
     }
@@ -318,23 +327,30 @@ public class CommandLineInterface {
 
         System.out.println("Enter card ID to move");
         int cardIDForMovingToAnotherBox = scannerObj.nextInt();
+        try {
+            Card card = cardBoxForMovingCards.findCardInCardBox(cardIDForMovingToAnotherBox);
+            //card is null if not found
 
-        Card card = cardBoxForMovingCards.findCardInCardBox(cardIDForMovingToAnotherBox); //card is null if not found
+            if (card != null) {
+                System.out.println("Which box to move this card to?");
+                for (int boxNum = 1; boxNum <= 5; boxNum++) {
+                    System.out.println(boxNum + ") Box " + boxNum);
+                }
 
-        if (card != null) {
-            System.out.println("Which box to move this card to?");
-            for (int boxNum = 1; boxNum <= 5; boxNum++) {
-                System.out.println(boxNum + ") Box " + boxNum);
+                int differentBoxNumber = scannerObj.nextInt();
+
+                CardBox differentCardBox = soleCardBoxManager.findCardBoxInCardBoxManager(differentBoxNumber);
+                cardBoxForMovingCards.moveCardToDifferentBox(cardIDForMovingToAnotherBox, differentCardBox);
+
+            } else {
+                System.out.println("Card not found");
             }
 
-            int differentBoxNumber = scannerObj.nextInt();
-
-            CardBox differentCardBox = soleCardBoxManager.findCardBoxInCardBoxManager(differentBoxNumber);
-            cardBoxForMovingCards.moveCardToDifferentBox(cardIDForMovingToAnotherBox, differentCardBox);
-
-        } else {
-            System.out.println("Card not found");
+        } catch (NoCardFoundException e) {
+            System.out.println(e.getMessage());
         }
+
+
 
 
     }

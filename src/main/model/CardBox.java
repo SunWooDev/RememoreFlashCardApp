@@ -22,6 +22,8 @@ public class CardBox implements Writable {
 
     private final List<Card> tableOfCards; //holds the cards in this particular box
     private final List<Card> testableTableOfCards; //holds the cards that are testable (card timer ran out)
+
+
     private final int cardBoxNum; //cardBoxNum is unique and is one of 1,2,3,4,5
     private int boxMinutesTimer; //timer associated with the box
 

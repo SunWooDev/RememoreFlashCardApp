@@ -1,5 +1,6 @@
 package model;
 
+import exception.NoCardFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,8 @@ public class CardBoxTest {
         assertEquals("Answer", actualCard.getBackInfo());
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0);
+        //month 1 is february since 0 index
         Date currentDate = cal.getTime();
 
         actualCard.setStartTime(currentDate);
@@ -67,7 +69,8 @@ public class CardBoxTest {
         //Therefore reset the cardID back to 0
         Card.setNextCardID(0);
         Calendar cal = Calendar.getInstance();
-        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0);
+        //month 1 is february since 0 index
         Date currentDate = cal.getTime();
 
         CardBox cardBoxObj = new CardBox(3,22);
@@ -331,15 +334,24 @@ public class CardBoxTest {
         CardBox cardBoxOne = new CardBox( 1, 20);
         cardBoxOne.addCard( "What does the duck say?", "quack" );
         cardBoxOne.addCard( "What does the cow say?", "moo" );
+        try {
+            Card foundCardDuck = cardBoxOne.findCardInCardBox( 0 );
+            assertEquals(cardBoxOne.getTableOfCards().get(0), foundCardDuck);
+            assertEquals(cardBoxOne.getTableOfCards().get(0).getFrontInfo(), foundCardDuck.getFrontInfo());
 
-        Card foundCardDuck = cardBoxOne.findCardInCardBox( 0 );
-        assertEquals(cardBoxOne.getTableOfCards().get(0), foundCardDuck);
-        assertEquals(cardBoxOne.getTableOfCards().get(0).getFrontInfo(), foundCardDuck.getFrontInfo());
+            Card foundCardCow = cardBoxOne.findCardInCardBox( 1 );
+            assertEquals(cardBoxOne.getTableOfCards().get(1), foundCardCow);
+            assertEquals(cardBoxOne.getTableOfCards().get(1).getFrontInfo(), foundCardCow.getFrontInfo());
+
+            //pass
+        } catch(NoCardFoundException e) {
+            System.out.println(e.getMessage());
+            fail("No Exception should be thrown");
+        }
 
 
-        Card foundCardCow = cardBoxOne.findCardInCardBox( 1 );
-        assertEquals(cardBoxOne.getTableOfCards().get(1), foundCardCow);
-        assertEquals(cardBoxOne.getTableOfCards().get(1).getFrontInfo(), foundCardCow.getFrontInfo());
+
+
     }
 
     @Test
@@ -351,9 +363,15 @@ public class CardBoxTest {
         CardBox cardBoxOne = new CardBox( 1, 20);
         cardBoxOne.addCard( "What does the duck say?", "quack" );
         cardBoxOne.addCard( "What does the cow say?", "moo" );
+        try {
+            Card foundCardDuck = cardBoxOne.findCardInCardBox( 55 );
+            assertEquals(null, foundCardDuck);
+            fail("NoCardFoundException should be thrown");
+        } catch (NoCardFoundException e) {
+            System.out.println(e.getMessage());
+            //pass
+        }
 
-        Card foundCardDuck = cardBoxOne.findCardInCardBox( 55 );
-        assertEquals(null, foundCardDuck);
 
 
 

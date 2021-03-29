@@ -80,7 +80,8 @@ public class CardBoxManagerTest {
     @Test
     public void testGotAnswerCorrectlyNotLastBox() {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
-        //When user get a testing card correctly, the card moves to the next box and timer is set to the next box's timer
+        //When user get a testing card correctly,
+        // the card moves to the next box and timer is set to the next box's timer
         //if the card is at the last box, the card stays and timer resets the the last box's
 
         //add a card to cardBoxOne
@@ -108,7 +109,8 @@ public class CardBoxManagerTest {
     @Test
     public void testGotAnswerCorrectlyLastBox() {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
-        //When user get a testing card correctly, the card moves to the next box and timer is set to the next box's timer
+        //When user get a testing card correctly,
+        // the card moves to the next box and timer is set to the next box's timer
         //if the card is at the last box, the card stays and timer resets the the last box's
 
         Calendar cal = Calendar.getInstance();
@@ -138,7 +140,8 @@ public class CardBoxManagerTest {
     @Test
     public void testGotAnswerIncorrectlyNotFirstBox() {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
-        //When user get a testing card incorrect, the card moves to the previous box and timer is set to the previous box's timer
+        //When user get a testing card incorrect,
+        // the card moves to the previous box and timer is set to the previous box's timer
         //if the card is at the first box, the card stays and timer resets the the first box's
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();
@@ -164,7 +167,8 @@ public class CardBoxManagerTest {
     @Test
     public void testGotAnswerIncorrectlyFirstBox() {
         CardBoxManager cardBoxManagerObj = new CardBoxManager();
-        //When user get a testing card incorrect, the card moves to the previous box and timer is set to the previous box's timer
+        //When user get a testing card incorrect,
+        // the card moves to the previous box and timer is set to the previous box's timer
         //if the card is at the first box, the card stays and timer resets the the first box's
         Calendar cal = Calendar.getInstance();
         Date currentDate = cal.getTime();

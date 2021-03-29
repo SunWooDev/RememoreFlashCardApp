@@ -169,7 +169,8 @@ public class JsonReaderTest {
     public void testReadNonEmptySavedCards() {
         CardBoxManager cardBoxManager = new CardBoxManager();
         //JsonReader Constructor
-        JsonReader reader = new JsonReader("./data/persistence/testReaderNonEmptySavedCards.json", cardBoxManager );
+        JsonReader reader =
+                new JsonReader("./data/persistence/testReaderNonEmptySavedCards.json", cardBoxManager );
 
         try {
 //            CardBoxManager loadedCardBoxManager = reader.read();

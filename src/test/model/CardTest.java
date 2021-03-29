@@ -10,11 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
 
-    //test the first constructor with parameter String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain
+    //test the first constructor with parameter
+    // String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain
     @Test
     public void testConstructor1() {
         Calendar cal = Calendar.getInstance();
-        cal.set(2020, Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        cal.set(2020, Calendar.FEBRUARY,7, 12, 0, 0);
+        //month 1 is february since 0 index
         Date currentDate = cal.getTime();
 
         Card cardObj = new Card("What is the color of the sky?", "blue", currentDate);
@@ -33,11 +35,13 @@ class CardTest {
 
     }
 
-    //test second constructor with parameter String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain, int inputID
+    //test second constructor with parameter
+    // String inputFrontInfo, String inputBackInfo, int inputTimeUntilTestedAgain, int inputID
     @Test
     public void testConstructor2() {
         Calendar cal = Calendar.getInstance();
-        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0);
+        //month 1 is february since 0 index
         Date currentDate = cal.getTime();
 
         Card cardObj = new Card("My favorite color?", "red", currentDate, 5);
@@ -58,12 +62,14 @@ class CardTest {
     @Test
     public void testToString() {
         Calendar cal = Calendar.getInstance();
-        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0);
+        //month 1 is february since 0 index
         Date currentDate = cal.getTime();
 
         Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
         String cardAsString = cardObj.toString();
-        String expectedString = "Card{frontInfo='What is 1+1?', backInfo='2', startTime=Fri Feb 07 12:00:00 KST 2020, ID=3}";
+        String expectedString =
+                "Card{frontInfo='What is 1+1?', backInfo='2', startTime=Fri Feb 07 12:00:00 KST 2020, ID=3}";
         assertEquals(expectedString, cardAsString);
 
 
@@ -72,7 +78,8 @@ class CardTest {
     @Test
     public void testToJson() {
         Calendar cal = Calendar.getInstance();
-        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0); //month 1 is february since 0 index
+        cal.set(2020,Calendar.FEBRUARY,7, 12, 0, 0);
+        //month 1 is february since 0 index
         Date currentDate = cal.getTime();
         Card cardObj = new Card("What is 1+1?", "2", currentDate, 3);
 

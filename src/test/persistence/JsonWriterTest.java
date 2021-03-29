@@ -49,7 +49,8 @@ public class JsonWriterTest {
 
         try {
             writer.open();
-            PrintWriter printWriter = new PrintWriter(new File("./data/persistence/testWriterEmptySavedCards.json"));
+            PrintWriter printWriter =
+                    new PrintWriter(new File("./data/persistence/testWriterEmptySavedCards.json"));
             //pass
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -69,7 +70,8 @@ public class JsonWriterTest {
             writer.write(cardBoxManager);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/persistence/testWriterEmptySavedCards.json", cardBoxManager);
+            JsonReader reader =
+                    new JsonReader("./data/persistence/testWriterEmptySavedCards.json", cardBoxManager);
             reader.read();
             //read that there are 5 card boxes
             assertEquals(5, cardBoxManager.getListOfCardBoxes().size());
@@ -81,11 +83,16 @@ public class JsonWriterTest {
             assertEquals( 5, cardBoxManager.findCardBoxInCardBoxManager(5).getCardBoxNum());
 
             //but there are no cards in the boxes
-            assertEquals( 0, cardBoxManager.findCardBoxInCardBoxManager(1).getTableOfCards().size());
-            assertEquals( 0, cardBoxManager.findCardBoxInCardBoxManager(2).getTableOfCards().size());
-            assertEquals( 0, cardBoxManager.findCardBoxInCardBoxManager(3).getTableOfCards().size());
-            assertEquals( 0, cardBoxManager.findCardBoxInCardBoxManager(4).getTableOfCards().size());
-            assertEquals( 0, cardBoxManager.findCardBoxInCardBoxManager(5).getTableOfCards().size());
+            assertEquals( 0,
+                    cardBoxManager.findCardBoxInCardBoxManager(1).getTableOfCards().size());
+            assertEquals( 0,
+                    cardBoxManager.findCardBoxInCardBoxManager(2).getTableOfCards().size());
+            assertEquals( 0,
+                    cardBoxManager.findCardBoxInCardBoxManager(3).getTableOfCards().size());
+            assertEquals( 0,
+                    cardBoxManager.findCardBoxInCardBoxManager(4).getTableOfCards().size());
+            assertEquals( 0,
+                    cardBoxManager.findCardBoxInCardBoxManager(5).getTableOfCards().size());
 
 
         } catch (FileNotFoundException e) {
@@ -138,11 +145,16 @@ public class JsonWriterTest {
             reader.read();
 
             //1 card in first box, 2 cards in second box, 1 card in third box, 1 card in fourth box, no card in fifth box
-            assertEquals( 1, cardBoxManager.findCardBoxInCardBoxManager(1).getTableOfCards().size());
-            assertEquals( 2, cardBoxManager.findCardBoxInCardBoxManager(2).getTableOfCards().size());
-            assertEquals( 1, cardBoxManager.findCardBoxInCardBoxManager(3).getTableOfCards().size());
-            assertEquals( 1, cardBoxManager.findCardBoxInCardBoxManager(4).getTableOfCards().size());
-            assertEquals( 0, cardBoxManager.findCardBoxInCardBoxManager(5).getTableOfCards().size());
+            assertEquals( 1,
+                    cardBoxManager.findCardBoxInCardBoxManager(1).getTableOfCards().size());
+            assertEquals( 2,
+                    cardBoxManager.findCardBoxInCardBoxManager(2).getTableOfCards().size());
+            assertEquals( 1,
+                    cardBoxManager.findCardBoxInCardBoxManager(3).getTableOfCards().size());
+            assertEquals( 1,
+                    cardBoxManager.findCardBoxInCardBoxManager(4).getTableOfCards().size());
+            assertEquals( 0,
+                    cardBoxManager.findCardBoxInCardBoxManager(5).getTableOfCards().size());
 
 
         } catch (FileNotFoundException e) {

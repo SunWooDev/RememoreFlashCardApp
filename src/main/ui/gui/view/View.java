@@ -39,11 +39,11 @@ public class View {
     private CardBoxPanel cardBoxPanel;
     private TestCardPanel testCardPanel;
 
-    //dialogs
-    private AddCardDialog addCardDialog;
-    private ChangeBoxTimerDialog changeBoxTimerDialog;
-    private ModifyCardDialog modifyCardDialog;
-    private MoveCardToDifferentBoxDialog moveCardToDifferentBoxDialog;
+//    //dialogs
+//    private AddCardDialog addCardDialog;
+//    private ChangeBoxTimerDialog changeBoxTimerDialog;
+//    private ModifyCardDialog modifyCardDialog;
+//    private MoveCardToDifferentBoxDialog moveCardToDifferentBoxDialog;
 
     //REQUIRES: X
     //EFFECTS: constructs a view object used to create MVC pattern for GUI application of rememore
@@ -120,21 +120,7 @@ public class View {
     }
 
 
-    public AddCardDialog getAddCardDialog() {
-        return addCardDialog;
-    }
 
-    public ChangeBoxTimerDialog getChangeBoxTimerDialog() {
-        return changeBoxTimerDialog;
-    }
-
-    public ModifyCardDialog getModifyCardDialog() {
-        return modifyCardDialog;
-    }
-
-    public MoveCardToDifferentBoxDialog getMoveCardToDifferentBoxDialog() {
-        return moveCardToDifferentBoxDialog;
-    }
 
 
 }
