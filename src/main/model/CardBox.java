@@ -1,6 +1,7 @@
 package model;
 
 
+import exception.NoCardFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -76,13 +77,20 @@ public class CardBox implements Writable {
     //MODIFIES: this
     //EFFECTS: removes the card given inputID in the tableOfCards
     public void removeCard(int inputID) {
-        Card cardToRemoveFound = findCardInCardBox(inputID);
+        try {
+            Card cardToRemoveFound = findCardInCardBox(inputID);
 
-        //if card is found
-        if (cardToRemoveFound != null) {
-            //remove the card
-            tableOfCards.remove(cardToRemoveFound);
+            //if card is found
+            if (cardToRemoveFound != null) {
+                //remove the card
+                tableOfCards.remove(cardToRemoveFound);
+            }
+        } catch (NoCardFoundException e) {
+            System.out.println("Error when removing card");
+            System.out.println(e.getMessage());
+
         }
+
 
     }
 
@@ -90,13 +98,20 @@ public class CardBox implements Writable {
     //MODIFIES: this
     //EFFECTS: modify the content of the front side (question) and back side (answer) of the card found given inputID
     public void modifyCard(int inputID, String inputModifiedFrontInfo, String inputModifiedBackInfo) {
-        Card cardToModifyFound = findCardInCardBox(inputID);
-        //if card is found
-        if (cardToModifyFound != null) {
-            //change the front and back info
-            cardToModifyFound.setFrontInfo(inputModifiedFrontInfo);
-            cardToModifyFound.setBackInfo(inputModifiedBackInfo);
+        try {
+            Card cardToModifyFound = findCardInCardBox(inputID);
+            //if card is found
+            if (cardToModifyFound != null) {
+                //change the front and back info
+                cardToModifyFound.setFrontInfo(inputModifiedFrontInfo);
+                cardToModifyFound.setBackInfo(inputModifiedBackInfo);
+            }
+        } catch (NoCardFoundException e) {
+            System.out.println("Error when modifying card");
+            System.out.println(e.getMessage());
+
         }
+
 
     }
 
@@ -104,13 +119,19 @@ public class CardBox implements Writable {
     //MODIFIES: this, inputToCardBox
     //EFFECTS: moves the card from this box object to inputToCardBox given inputID of a card
     public void moveCardToDifferentBox(int inputID, CardBox inputToCardBox) {
-        Card cardToMoveFound = findCardInCardBox(inputID);
-        //if card is found
-        if (cardToMoveFound != null) {
-            //move the card to another box
-            inputToCardBox.getTableOfCards().add(cardToMoveFound);
-            tableOfCards.remove(cardToMoveFound);
+        try {
+            Card cardToMoveFound = findCardInCardBox(inputID);
+            //if card is found
+            if (cardToMoveFound != null) {
+                //move the card to another box
+                inputToCardBox.getTableOfCards().add(cardToMoveFound);
+                tableOfCards.remove(cardToMoveFound);
+            }
+        } catch (NoCardFoundException e) {
+            System.out.println("Error when moving card to different box");
+            System.out.println(e.getMessage());
         }
+
 
     }
 
@@ -141,7 +162,7 @@ public class CardBox implements Writable {
     //REQUIRES: inputID must be existing card ID in the tableOfCards.
     //MODIFIES: X
     //EFFECTS: returns the card given input card ID.
-    public Card findCardInCardBox(int inputID) {
+    public Card findCardInCardBox(int inputID) throws NoCardFoundException {
         //find in the tableOfCards
         for (Card cardInTableOfCards : tableOfCards) {
             //if inputID matches with card's ID in tableOfCard,
@@ -152,7 +173,9 @@ public class CardBox implements Writable {
             //else keep looking
         }
         //if iteration is done, then it means no cards are found. Return null
-        return null;
+
+        throw new NoCardFoundException("There is such card in the cardbox");
+
     }
 
 

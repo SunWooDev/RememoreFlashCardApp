@@ -46,6 +46,20 @@ Moreover, by using an efficient learning technique, I can also achieve better wo
 
 **Due timer is calculated by start time + card box timer. Start time is set to the time when the card is first created and when the card is moved to previous or next box*
 
+#### **Phase 4: Task 2**
+Chosen  Java language construct
+Test and design a class in your model package that is robust. 
+You must have at least one method that throws a checked exception.  
+You must have one test for the case where the exception is expected and another where the exception is not expected.
+
+findCardInCardBox() throws NoCardFoundException
+
+NoCardFoundException is caught in 
+removeCard() 
+modifyCard()
+moveCardToDifferentBox()
+
+
 #### **Grading Scheme**
 - 20 pts - (code coverage score * 20) - so 100% code coverage yields a score of 20, whereas 0% code coverage yields a score of 0
 - 10 pts - clear and correct documentation has been provided 
