@@ -39,7 +39,6 @@ public class Persistence {
         soleCardBoxManager = inputSoleCardBoxManager;
         jsonWriterObj = new JsonWriter(JSON_STORE);
         jsonReaderObj = new JsonReader(JSON_STORE,soleCardBoxManager);
-
     }
 
 

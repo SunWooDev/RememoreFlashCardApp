@@ -47,17 +47,29 @@ Moreover, by using an efficient learning technique, I can also achieve better wo
 **Due timer is calculated by start time + card box timer. Start time is set to the time when the card is first created and when the card is moved to previous or next box*
 
 #### **Phase 4: Task 2**
-Chosen  Java language construct
+##### Indicate which of the options above you have chosen to implement. 
 Test and design a class in your model package that is robust. 
 You must have at least one method that throws a checked exception.  
 You must have one test for the case where the exception is expected and another where the exception is not expected.
 
+##### Please include the classes and methods in that play a role in this task
 findCardInCardBox() throws NoCardFoundException
 
 NoCardFoundException is caught in 
 removeCard() 
 modifyCard()
 moveCardToDifferentBox()
+
+#### **Phase 4: Task 3**
+#### Reflect on the design presented in your UML class diagram. 
+#### If you had more time to work on the project, is there any refactoring that you would do to improve your design?
+- Consistency Principle: In the UML diagram, JsonWriter depends on CardBoxManager and JsonReader is associated with CardBoxManager. This design is inconsistent because JsonReader has CardBoxManager as its field while JsonWriter does not. To fix this, JsonWriter should be associated with CardBoxManager.
+- Flexibility Principle: In the UML diagram, 5 CardBox objects are hardcoded (instantiated) in the CardBoxManager constructor. However, this causes inflexibility to add more card boxes to the Rememore program because, to add more card boxes in, I have to add another line of instantiation of CardBox class in the CardBoxManager constructor. To fix this, 
+- Law of Demeter and Iterator design pattern: In the UML diagram, the lack of an iterator pattern implies the loops in CardBoxManager and CardBox use loops that expose the underlying details of the loop. For example, the findCardsToTest() method uses for each loop “for (Card cardInTableOfCards : tableOfCards)” that reveals that tableOfCards is an ArrayList with Card objects in them. Instead, I should use an iterator pattern to hide internal representation of the data structure that the loop is traversing. For example, using the iterator pattern, findCardsToTest() method can employ “while (iterator.hasNext())” to hide the fact that Card element is being iterated in ArrayList tableOfCards.
+- Singleton Pattern: In the UML diagram, there is a lack of information about how many CardBoxManager is instantiated. However, CardBoxManager is meant to be instantiated only once. Accidently, I can instantiate the CardBoxManager multiple times. To ensure that it is instantiated once, I should employ a singleton pattern by making CardBoxManager constructor private and have a public getInstance() method for global access to a sole CardBoxManager object.
+- Open/Closed Principle: In the UML diagram, CardBox is associated with Card. In other words, CardBox has 0 to multiple cards. However, Card class can only support flash cards with only text. If I wanted a flash card that can support images, for example, I have to create an ImageCard class that is on the same level of abstraction as Card class. However, CardBox is unable to add, remove, modify the ImageCard class as it can only do Card class objects. Therefore, I should employ open/closed principle and add the Card interface that TextCard (card that only supports text)  and ImageCard (card that can support images) implements. This way, CardBox can add, remove, modify different types of Card implementation.
+
+
 
 
 #### **Grading Scheme**
