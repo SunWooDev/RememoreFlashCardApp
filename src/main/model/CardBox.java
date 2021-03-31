@@ -83,10 +83,12 @@ public class CardBox implements Writable {
             Card cardToRemoveFound = findCardInCardBox(inputID);
 
             //if card is found
-            if (cardToRemoveFound != null) {
-                //remove the card
-                tableOfCards.remove(cardToRemoveFound);
-            }
+//            if (cardToRemoveFound != null) {
+//                //remove the card
+//                tableOfCards.remove(cardToRemoveFound);
+//            }
+            tableOfCards.remove(cardToRemoveFound);
+
         } catch (NoCardFoundException e) {
             System.out.println("Error when removing card");
             System.out.println(e.getMessage());
@@ -103,11 +105,15 @@ public class CardBox implements Writable {
         try {
             Card cardToModifyFound = findCardInCardBox(inputID);
             //if card is found
-            if (cardToModifyFound != null) {
-                //change the front and back info
-                cardToModifyFound.setFrontInfo(inputModifiedFrontInfo);
-                cardToModifyFound.setBackInfo(inputModifiedBackInfo);
-            }
+//            if (cardToModifyFound != null) {
+//                //change the front and back info
+//                cardToModifyFound.setFrontInfo(inputModifiedFrontInfo);
+//                cardToModifyFound.setBackInfo(inputModifiedBackInfo);
+//            }
+            cardToModifyFound.setFrontInfo(inputModifiedFrontInfo);
+            cardToModifyFound.setBackInfo(inputModifiedBackInfo);
+
+
         } catch (NoCardFoundException e) {
             System.out.println("Error when modifying card");
             System.out.println(e.getMessage());
@@ -124,11 +130,15 @@ public class CardBox implements Writable {
         try {
             Card cardToMoveFound = findCardInCardBox(inputID);
             //if card is found
-            if (cardToMoveFound != null) {
-                //move the card to another box
-                inputToCardBox.getTableOfCards().add(cardToMoveFound);
-                tableOfCards.remove(cardToMoveFound);
-            }
+//            if (cardToMoveFound != null) {
+//                //move the card to another box
+//                inputToCardBox.getTableOfCards().add(cardToMoveFound);
+//                tableOfCards.remove(cardToMoveFound);
+//            }
+
+            inputToCardBox.getTableOfCards().add(cardToMoveFound);
+            tableOfCards.remove(cardToMoveFound);
+
         } catch (NoCardFoundException e) {
             System.out.println("Error when moving card to different box");
             System.out.println(e.getMessage());
