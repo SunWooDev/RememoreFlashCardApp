@@ -5,6 +5,14 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.text.NumberFormat;
 
+/*
+ChangeBoxTimerDialog represents dialog that pop up when modify box timer button is pressed in the main menu panel
+After selecting a box
+It has a text field for entering the minutes the user wishes to change the select box's timer to
+It has a button for confirm change button
+It has a button for canceling
+
+ */
 public class ChangeBoxTimerDialog extends JDialog {
 
     //Enter minutes panel

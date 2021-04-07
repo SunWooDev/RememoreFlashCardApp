@@ -171,9 +171,14 @@ public class CardBox implements Writable {
 
     }
 
-    //REQUIRES: inputID must be existing card ID in the tableOfCards.
+    //REQUIRES: X
     //MODIFIES: X
-    //EFFECTS: returns the card given input card ID.
+    //EFFECTS:
+    //if card is found with inputID
+    //returns the card given input card ID.
+    //else (card is not found with inputID meaning there is no such card)
+    //throw NoCardFoundException
+
     public Card findCardInCardBox(int inputID) throws NoCardFoundException {
         //find in the tableOfCards
         for (Card cardInTableOfCards : tableOfCards) {

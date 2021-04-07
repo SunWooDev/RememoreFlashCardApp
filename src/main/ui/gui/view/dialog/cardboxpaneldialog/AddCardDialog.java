@@ -2,7 +2,14 @@ package ui.gui.view.dialog.cardboxpaneldialog;
 
 import javax.swing.*;
 
+/*
+AddCardDialog represents the dialog that pops up when add card button is pressed in the card box panel
+It has a text field for entering the question
+It has a text field for entering the answer
+It has a button for confirm add button
+It has a button for canceling
 
+ */
 public class AddCardDialog extends JDialog {
 
     //front info

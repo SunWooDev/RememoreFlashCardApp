@@ -1,7 +1,14 @@
 package ui.gui.view.dialog.cardboxpaneldialog;
 
 import javax.swing.*;
+/*
+MoveCardToDifferentBoxDialog represents dialog that pop up when move card button is pressed in the card box panel
+It has a text field for entering the card ID the user wishes to move
+It has a text field for box number the user wishes move the card to
+It has a button for confirm move button
+It has a button for canceling
 
+ */
 public class MoveCardToDifferentBoxDialog extends JDialog  {
 
     //identify which card to modify

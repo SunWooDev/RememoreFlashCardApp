@@ -2,6 +2,15 @@ package ui.gui.view.dialog.cardboxpaneldialog;
 
 import javax.swing.*;
 
+/*
+ModifyCardDialog represents dialog that pop up when modify card button is pressed in the card box panel
+It has a text field for entering the card ID the user wishes to modify
+It has a text field for overwriting the question
+It has a text field for overwriting the question
+It has a button for confirm modify button
+It has a button for canceling
+
+ */
 public class ModifyCardDialog extends JDialog {
 
     //identify which card to modify

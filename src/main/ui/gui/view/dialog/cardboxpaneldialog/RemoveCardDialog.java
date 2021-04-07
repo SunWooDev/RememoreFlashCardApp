@@ -2,6 +2,13 @@ package ui.gui.view.dialog.cardboxpaneldialog;
 
 import javax.swing.*;
 
+/*
+RemoveCardDialog represents dialog that pop up when remove card button is pressed in the card box panel
+It has a text field for entering the card ID the user wishes to remove
+It has a button for confirm remove button
+It has a button for canceling
+
+ */
 public class RemoveCardDialog extends JDialog {
 
 

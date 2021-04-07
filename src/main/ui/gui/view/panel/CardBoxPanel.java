@@ -161,16 +161,13 @@ public class CardBoxPanel extends JPanel {
         return moveCardToAnotherBoxButton;
     }
 
-    public JTable getCardTable() {
-        return cardTable;
-    }
 
-    public void setModifiedMode() {
-
-        // toggle enable function
-        cardTable.setEnabled(!cardTable.isEnabled());
-
-    }
+//    public void setModifiedMode() {
+//
+//        // toggle enable function
+//        cardTable.setEnabled(!cardTable.isEnabled());
+//
+//    }
 
     public JLabel getBoxIndicator() {
         return boxIndicator;

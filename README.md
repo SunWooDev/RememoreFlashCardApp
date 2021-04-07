@@ -53,7 +53,7 @@ You must have at least one method that throws a checked exception.
 You must have one test for the case where the exception is expected and another where the exception is not expected.
 
 ##### Please include the classes and methods in that play a role in this task
-findCardInCardBox() throws NoCardFoundException
+In CardBox class findCardInCardBox() throws NoCardFoundException
 
 NoCardFoundException is caught in 
 removeCard() 
